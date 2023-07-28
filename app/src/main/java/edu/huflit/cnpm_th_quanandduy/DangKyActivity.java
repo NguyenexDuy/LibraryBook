@@ -17,12 +17,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DangKyActivity extends AppCompatActivity {
 
-    EditText edtGmail, edtPass, edtPassAgain;
+    EditText edtGmail, edtPass, edtPassAgain,edtFullName,edtPhone;
     Button btnregister;
     FirebaseAuth mAuth;
+    FirebaseFirestore firestore;
     ProgressBar progressBar;
     TextView loginNow;
 
@@ -30,12 +37,14 @@ public class DangKyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
-
+        edtFullName=findViewById(R.id.edtFullname);
+        edtPhone=findViewById(R.id.edtPhone);
         edtGmail=findViewById(R.id.edtGmail);
         edtPass=findViewById(R.id.edtPass);
         edtPassAgain=findViewById(R.id.edtPassAgain);
         btnregister=findViewById(R.id.btnregister);
         mAuth=FirebaseAuth.getInstance();
+        firestore=FirebaseFirestore.getInstance();
         progressBar=findViewById(R.id.progressbar);
         loginNow=findViewById(R.id.loginNow);
         loginNow.setOnClickListener(new View.OnClickListener() {
@@ -50,10 +59,13 @@ public class DangKyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.GONE);
-                String email, pass, passAgain;
+                String email, pass, passAgain,fullname,phone;
+                fullname=edtFullName.getText().toString();
+                phone=edtPhone.getText().toString();
                 email=edtGmail.getText().toString();
                 pass=edtPass.getText().toString();
                 passAgain=edtPassAgain.getText().toString();
+
 
                 if(TextUtils.isEmpty(email))
                 {
@@ -70,7 +82,17 @@ public class DangKyActivity extends AppCompatActivity {
                     Toast.makeText(DangKyActivity.this, "Vui long nhap password", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(pass.equals(passAgain))
+                if(TextUtils.isEmpty(fullname))
+                {
+                    Toast.makeText(DangKyActivity.this, "Vui long nhap ho va ten", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(phone))
+                {
+                    Toast.makeText(DangKyActivity.this, "Vui long nhap so dien thoai", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!pass.equals(passAgain))
                 {
                     Toast.makeText(DangKyActivity.this, "password không khớp với cái đã cho", Toast.LENGTH_SHORT).show();
                 }
@@ -82,6 +104,14 @@ public class DangKyActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(DangKyActivity.this, "Tao tai khoan thanh cong",
                                             Toast.LENGTH_SHORT).show();
+                                    FirebaseUser user=mAuth.getCurrentUser();
+                                    DocumentReference dr=firestore.collection("user").document(user.getUid());
+                                    Map<String,Object> userInfo=new HashMap<>();
+                                    userInfo.put("HovaTen",fullname);
+                                    userInfo.put("SoDienThoai",phone);
+                                    userInfo.put("UserEmail",email);
+                                    userInfo.put("IsUser","1");
+                                    dr.set(userInfo);
 
                                 } else {
                                     // If sign in fails, display a message to the user.

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DangNhapActivity extends AppCompatActivity {
 
@@ -25,6 +30,7 @@ public class DangNhapActivity extends AppCompatActivity {
     TextView registerNow;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public class DangNhapActivity extends AppCompatActivity {
         edtPassLogin=findViewById(R.id.edtPassLogin);
         btnLogin=findViewById(R.id.btnLogin);
         mAuth=FirebaseAuth.getInstance();
+        firestore=FirebaseFirestore.getInstance();
         progressBar=findViewById(R.id.progressbar);
         registerNow=findViewById(R.id.registerNow);
         registerNow.setOnClickListener(new View.OnClickListener() {
@@ -64,28 +71,37 @@ public class DangNhapActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(email,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(DangNhapActivity.this, MainActivity.class);
-                            startActivity(i);
-                        }
-                        else{
-                            if (email.equals("admin@gmail.com") && pass.equals("123456")) {
-                            Toast.makeText(DangNhapActivity.this, "Đăng nhập Admin thành công", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(DangNhapActivity.this, AdminActivity.class);
-                            startActivity(i);
-                            }
-                            else {
-                                Toast.makeText(DangNhapActivity.this, "Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        checkRoleUser(authResult.getUser().getUid());
                     }
                 });
             }
         });
+    }
+
+    private void checkRoleUser(String uid) {
+        DocumentReference dr=firestore.collection("user").document(uid);
+        dr.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("Tag","onSucess"+documentSnapshot.getData());
+                if(documentSnapshot.getString("isUser")!=null)
+                {
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
+                if(documentSnapshot.getString("isAdmin")!=null)
+                {
+                    Toast.makeText(DangNhapActivity.this, "Code ngu roi", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                    finish();
+                }
+            }
+        });
+
+
     }
 }
