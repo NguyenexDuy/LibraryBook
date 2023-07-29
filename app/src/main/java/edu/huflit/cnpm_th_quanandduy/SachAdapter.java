@@ -49,15 +49,7 @@ public class SachAdapter extends  RecyclerView.Adapter<SachAdapter.SachViewHolde
     public void onBindViewHolder(@NonNull SachViewHolder holder, int position) {
         Sach sach=saches.get(position);
         holder.TenSach.setText(sach.getTenSach());
-//        StorageReference storageReference=storage.getReference();
-//        StorageReference imgSach=storageReference.child(String.valueOf(sach.getHinhSach()));
-//        imgSach.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                Bitmap bitmap=BitmapFactory.decodeByteArray(bytes, 0,bytes.length);
-//                holder.HinhSach.setImageBitmap(bitmap);
-//            }
-//        });
+
         String imageUri= sach.getHinhSach();
 
         Glide.with(holder.itemView.getContext()).load(imageUri).into(holder.HinhSach);

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +15,11 @@
         android:theme="@style/Theme.CNPM_TH_QUANANDDUY"
         tools:targetApi="31">
         <activity
+            android:name=".ChiTietSachActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddSachActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".AdminActivity"
             android:exported="false" />

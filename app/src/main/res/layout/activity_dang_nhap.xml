@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:padding="10dp"
+    android:background="@drawable/background"
     tools:context=".DangNhapActivity">
 
     <TextView
@@ -14,9 +16,11 @@
         android:text="Login"
         android:textSize="60dp"
         android:gravity="center"
+        android:textColor="@color/white"
         android:paddingBottom="25dp"/>
 
     <EditText
+        android:textColorHint="@color/white"
         android:id="@+id/edtGmaillogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -24,9 +28,10 @@
         android:background="@drawable/border_edit"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Gmail..." />
+        android:hint="Gmail" />
 
     <EditText
+        android:textColorHint="@color/white"
         android:id="@+id/edtPassLogin"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -34,34 +39,38 @@
         android:layout_height="50dp"
         android:paddingLeft="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Pass...." />
+        android:inputType="textPassword"
+        android:hint="Password" />
+
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
         android:textColor="@color/black"
-        android:backgroundTint="#F000FE40"/>
+        android:backgroundTint="#F0FE9800"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="18dp"
             android:text="Bạn chưa có tài khoản? "
             />
 
         <TextView
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="13dp"
             android:id="@+id/registerNow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tạo tài khoản "
-            android:textColor="#3F51B5"/>
+            android:textSize="18dp"
+            android:textColor="#CC99FF"/>
     </LinearLayout>
     <ProgressBar
         android:id="@+id/progressbar"
