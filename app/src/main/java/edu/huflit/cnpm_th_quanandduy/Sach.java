@@ -1,5 +1,7 @@
 package edu.huflit.cnpm_th_quanandduy;
 
+import android.net.Uri;
+
 public class Sach {
 
     private String IdSach;

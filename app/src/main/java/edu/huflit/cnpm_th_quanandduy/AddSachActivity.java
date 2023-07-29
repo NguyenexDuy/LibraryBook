@@ -49,6 +49,7 @@ public class AddSachActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sach);
 
+
         imagChonSach=findViewById(R.id.imagChonSach);
         edtTenSach=findViewById(R.id.edtTenSach);
         edtTenTacGia=findViewById(R.id.edtTenTacGia);

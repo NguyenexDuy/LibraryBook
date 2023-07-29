@@ -1,5 +1,6 @@
 package edu.huflit.cnpm_th_quanandduy.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -103,7 +104,7 @@ public class TrangChuFragment extends Fragment {
     private void LayDuLieu() {
 
         db=FirebaseFirestore.getInstance();
-        db.collection("Sach").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("sach").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()){

@@ -88,17 +88,27 @@ public class DangNhapActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("Tag","onSucess"+documentSnapshot.getData());
-                if(documentSnapshot.getString("isUser")!=null)
-                {
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    finish();
-                }
+//                if(documentSnapshot.getString("isUser")!=null)
+//                {
+//                    Toast.makeText(DangNhapActivity.this, "Đã vào role user", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                    finish();
+//                }
                 if(documentSnapshot.getString("isAdmin")!=null)
                 {
                     Toast.makeText(DangNhapActivity.this, "Code ngu roi", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                    startActivity(new Intent(getApplicationContext(),AddSachActivity.class));
                     finish();
+                } else if (documentSnapshot.getString("IsUser")!=null) {
+
+                    Intent intent=new Intent(DangNhapActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
+//                if (documentSnapshot.getString("isUser")!=null)
+//                {
+//                    Intent intent=new Intent(DangNhapActivity.this,MainActivity.class);
+//                    startActivity(intent);
+//                }
             }
         });
 
