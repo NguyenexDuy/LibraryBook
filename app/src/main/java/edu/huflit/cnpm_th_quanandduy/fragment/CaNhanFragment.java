@@ -2,13 +2,33 @@ package edu.huflit.cnpm_th_quanandduy.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.concurrent.Executor;
 
 import edu.huflit.cnpm_th_quanandduy.R;
+import edu.huflit.cnpm_th_quanandduy.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,4 +83,49 @@ public class CaNhanFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ca_nhan, container, false);
     }
+    TextView tv_nameUser;
+    Button btn_dangXuat;
+    FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tv_nameUser=view.findViewById(R.id.tv_nameUser);
+        btn_dangXuat=view.findViewById(R.id.btn_dangXuat);
+        firebaseAuth=FirebaseAuth.getInstance();
+        db=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser=firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            String userUid = firebaseUser.getUid();
+
+            // Tạo reference đến tài liệu Firestore tương ứng với tài khoản người dùng hiện tại
+            DocumentReference docRef = db.collection("user").document(userUid);
+
+            docRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    // Document tồn tại, bạn có thể lấy dữ liệu từ nó
+                    String name = documentSnapshot.getString("HovaTen"); // Thay "name" bằng tên trường dữ liệu bạn muốn lấy
+                    tv_nameUser.setText(name); // Hiển thị dữ liệu lấy được vào TextView
+                } else {
+                    // Document không tồn tại hoặc có lỗi xảy ra
+                    tv_nameUser.setText("Document không tồn tại");
+                }
+            }).addOnFailureListener(e -> {
+                // Xử lý lỗi nếu việc lấy dữ liệu thất bại
+                tv_nameUser.setText("Lỗi khi lấy dữ liệu từ Firestore");
+            });
+        } else {
+            // Người dùng chưa đăng nhập, xử lý thông báo tương ứng
+            tv_nameUser.setText("Chưa đăng nhập");
+        }
+
+
+
+
+
+        }
 }

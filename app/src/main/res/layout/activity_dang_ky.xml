@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingLeft="10dp"
+        android:textColor="@color/white"
         android:background="@drawable/border_edit"
         android:ems="10"
         android:textColorHint="@color/white"
@@ -32,6 +33,7 @@
         android:id="@+id/edtGmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textColor="@color/white"
         android:paddingLeft="10dp"
         android:background="@drawable/border_edit"
         android:ems="10"
@@ -42,6 +44,7 @@
     <EditText
         android:id="@+id/edtPass"
         android:layout_width="match_parent"
+        android:textColor="@color/white"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_edit"
         android:layout_height="50dp"
@@ -53,6 +56,7 @@
 
     <EditText
         android:id="@+id/edtPassAgain"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_edit"
@@ -64,6 +68,7 @@
         android:hint="Nhập lại mật khẩu" />
     <EditText
         android:id="@+id/edtPhone"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_edit"
@@ -94,6 +99,7 @@
         android:id="@+id/loginNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Nhấn vào đây để đăng nhập "/>
 
 

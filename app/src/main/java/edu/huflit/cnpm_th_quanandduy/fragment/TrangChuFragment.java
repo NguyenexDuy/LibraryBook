@@ -1,6 +1,6 @@
 package edu.huflit.cnpm_th_quanandduy.fragment;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +25,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.R;
-import edu.huflit.cnpm_th_quanandduy.Sach;
+import edu.huflit.cnpm_th_quanandduy.TimKiemActivity;
+import edu.huflit.cnpm_th_quanandduy.model.Sach;
 import edu.huflit.cnpm_th_quanandduy.SachAdapter;
 
 /**
@@ -71,7 +75,6 @@ public class TrangChuFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,32 +82,43 @@ public class TrangChuFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_trang_chu, container, false);
     }
 
-    ArrayList<Sach> saches;
-    RecyclerView rcv_Sach;
-    SachAdapter sachAdapter;
+    ArrayList<Sach> sachesKinhDi;
+    ArrayList<Sach> sachesTinhYeu;
+    RecyclerView rcv_SachKinhDi,rcv_SachTinhYeu;
+    SachAdapter sachAdapter1;
+    SachAdapter sachAdapter2;
     FirebaseFirestore db;
+    TextView img_search;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcv_Sach=view.findViewById(R.id.rcv_SachKinhDi);
-        saches=new ArrayList<>();
-        sachAdapter=new SachAdapter(getContext(), saches);
-        rcv_Sach.setAdapter(sachAdapter);
+        rcv_SachKinhDi=view.findViewById(R.id.rcv_SachKinhDi);
+        rcv_SachTinhYeu=view.findViewById(R.id.rcv_SachTinhYeu);
+        img_search=view.findViewById(R.id.img_search);
+        sachesKinhDi =new ArrayList<>();
+        sachesTinhYeu=new ArrayList<>();
+        sachesTinhYeu();
+        sachesKinhDi();
+        sachAdapter1=new SachAdapter(getContext(), sachesKinhDi);
+        sachAdapter2=new SachAdapter(getContext(),sachesTinhYeu);
+        rcv_SachKinhDi.setAdapter(sachAdapter1);
+        rcv_SachTinhYeu.setAdapter(sachAdapter2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        rcv_Sach.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcv_SachKinhDi.setLayoutManager(layoutManager);
+        rcv_SachTinhYeu.setLayoutManager(layoutManager2);
+        img_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        saches.clear();
-        LayDuLieu();
-    }
-
-    private void LayDuLieu() {
+    private void sachesKinhDi() {
 
         db=FirebaseFirestore.getInstance();
-        db.collection("sach").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("sach").whereEqualTo("LoaiSach","kinh dị").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
@@ -117,9 +131,32 @@ public class TrangChuFragment extends Fragment {
                     String HinhSach = (String) documentSnapshot.get("HinhSach");
 
                     Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
-                    saches.add(sach);
+                    sachesKinhDi.add(sach);
                 }
-                sachAdapter.notifyDataSetChanged();
+                sachAdapter1.notifyDataSetChanged();
+
+            }
+        });
+    }
+    private void sachesTinhYeu() {
+
+        db=FirebaseFirestore.getInstance();
+        db.collection("sach").whereEqualTo("LoaiSach","tình yêu").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                    String IdSach=documentSnapshot.getId();
+                    String TenSach=(String)documentSnapshot.get("TenSach");
+                    String GiaSach = (String) documentSnapshot.get("GiaSach");
+                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
+                    String TacGia = (String) documentSnapshot.get("TacGia");
+                    String MoTa = (String) documentSnapshot.get("MoTa");
+                    String HinhSach = (String) documentSnapshot.get("HinhSach");
+
+                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
+                    sachesTinhYeu.add(sach);
+                }
+                sachAdapter2.notifyDataSetChanged();
 
             }
         });
