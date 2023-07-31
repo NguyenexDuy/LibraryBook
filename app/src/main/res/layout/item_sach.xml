@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="170dp"
+    android:layout_width="160dp"
+    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp">
+    android:background="@drawable/border_edit"
+    android:layout_margin="10sp"
+    android:padding="2sp"
+    app:cardCornerRadius="15dp">
 <LinearLayout
     android:layout_marginTop="10dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:padding="3sp"
     android:orientation="vertical">
     <ImageView
-        android:id="@+id/img_sach"
+        android:id="@+id/img_sachAdmin"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:src="@drawable/yeulayeuthethoi"/>
     <TextView
-        android:id="@+id/tv_tenSach"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_tenSachAdmin"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Ten sach"
-        android:padding="6dp"
+        android:gravity="center"
         android:textStyle="bold"
-        android:textSize="14dp"/>
+        android:textSize="16dp"/>
 
 
 
@@ -29,3 +34,4 @@
 
 
 </androidx.cardview.widget.CardView>
+

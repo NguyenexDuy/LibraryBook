@@ -1,8 +1,10 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.model;
 
 import android.net.Uri;
 
-public class Sach {
+import java.io.Serializable;
+
+public class Sach implements Serializable {
 
     private String IdSach;
     private String TenSach;
@@ -22,7 +24,13 @@ public class Sach {
         HinhSach = hinhSach;
     }
 
+    public String getIdSach() {
+        return IdSach;
+    }
 
+    public void setIdSach(String idSach) {
+        IdSach = idSach;
+    }
 
     public String getTenSach() {
         return TenSach;

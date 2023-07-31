@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Sách"
+        android:id="@+id/mnu_sach"
+        android:icon="@drawable/baseline_menu_book_24"
+        app:showAsAction="always"/>
+    <item android:title="Thông báo"
+        android:id="@+id/mnu_thongbao"
+        android:icon="@drawable/baseline_notifications_24"
+        app:showAsAction="always"/>
+
+</menu>

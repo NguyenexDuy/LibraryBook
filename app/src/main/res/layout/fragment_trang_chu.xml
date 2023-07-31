@@ -22,6 +22,21 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:paddingLeft="10dp"
+               android:paddingTop="5dp"
+               android:id="@+id/img_search"
+               android:layout_width="match_parent"
+               android:layout_height="30dp"
+               android:drawableEnd="@drawable/baseline_search_24"
+               android:drawablePadding="10dp"
+               android:text="Nhập từ tìm kiếm tại đây"
+               android:background="@drawable/border_edit2"/>
+       </LinearLayout>
+
         <TextView
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -47,7 +62,7 @@
         <TextView
             android:layout_marginTop="15dp"
             android:textColor="@color/black"
-            android:text="Thể loại kinh dị"
+            android:text="Thể loại tình yêu"
             android:layout_width="200dp"
             android:layout_height="wrap_content">
         </TextView>
@@ -62,10 +77,5 @@
 
     </LinearLayout>
 </ScrollView>
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rcv_Sach"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"/>-->
 
 </LinearLayout>

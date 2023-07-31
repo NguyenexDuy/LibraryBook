@@ -24,6 +24,7 @@
         android:id="@+id/edtGmaillogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textColor="@color/white"
         android:paddingLeft="10dp"
         android:background="@drawable/border_edit"
         android:ems="10"
@@ -38,6 +39,7 @@
         android:background="@drawable/border_edit"
         android:layout_height="50dp"
         android:paddingLeft="10dp"
+        android:textColor="@color/white"
         android:ems="10"
         android:inputType="textPassword"
         android:hint="Password" />
