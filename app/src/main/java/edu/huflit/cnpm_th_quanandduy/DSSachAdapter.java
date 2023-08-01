@@ -98,7 +98,7 @@ public class DSSachAdapter extends  RecyclerView.Adapter<DSSachAdapter.DSSachVie
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, "oh shit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Xóa không thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }

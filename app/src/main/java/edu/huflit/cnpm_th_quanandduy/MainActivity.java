@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import edu.huflit.cnpm_th_quanandduy.fragment.CaNhanFragment;
+import edu.huflit.cnpm_th_quanandduy.fragment.HoaDonFragment;
 import edu.huflit.cnpm_th_quanandduy.fragment.TrangChuFragment;
 import edu.huflit.cnpm_th_quanandduy.fragment.YeuThichFragment;
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.mnu_canhan:
                 fragment = new CaNhanFragment();
+                break;
+            case R.id.mnu_hoadon:
+                fragment = new HoaDonFragment();
                 break;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

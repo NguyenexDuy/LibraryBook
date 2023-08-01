@@ -82,11 +82,14 @@ public class TrangChuFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_trang_chu, container, false);
     }
 
+
     ArrayList<Sach> sachesKinhDi;
     ArrayList<Sach> sachesTinhYeu;
-    RecyclerView rcv_SachKinhDi,rcv_SachTinhYeu;
+    ArrayList<Sach> sachesTreem;
+    RecyclerView rcv_SachKinhDi,rcv_SachTinhYeu,rcv_SachTreEm;
     SachAdapter sachAdapter1;
     SachAdapter sachAdapter2;
+    SachAdapter sachAdapter3;
     FirebaseFirestore db;
     TextView img_search;
     @Override
@@ -94,19 +97,26 @@ public class TrangChuFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rcv_SachKinhDi=view.findViewById(R.id.rcv_SachKinhDi);
         rcv_SachTinhYeu=view.findViewById(R.id.rcv_SachTinhYeu);
+        rcv_SachTreEm=view.findViewById(R.id.rcv_SachTreEm);
         img_search=view.findViewById(R.id.img_search);
         sachesKinhDi =new ArrayList<>();
         sachesTinhYeu=new ArrayList<>();
+        sachesTreem=new ArrayList<>();
         sachesTinhYeu();
         sachesKinhDi();
+        sachesTreEm();
         sachAdapter1=new SachAdapter(getContext(), sachesKinhDi);
         sachAdapter2=new SachAdapter(getContext(),sachesTinhYeu);
+        sachAdapter3=new SachAdapter(getContext(),sachesTreem);
         rcv_SachKinhDi.setAdapter(sachAdapter1);
         rcv_SachTinhYeu.setAdapter(sachAdapter2);
+        rcv_SachTreEm.setAdapter(sachAdapter3);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager3 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rcv_SachKinhDi.setLayoutManager(layoutManager);
         rcv_SachTinhYeu.setLayoutManager(layoutManager2);
+        rcv_SachTreEm.setLayoutManager(layoutManager3);
         img_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +167,29 @@ public class TrangChuFragment extends Fragment {
                     sachesTinhYeu.add(sach);
                 }
                 sachAdapter2.notifyDataSetChanged();
+
+            }
+        });
+    }
+    private void sachesTreEm() {
+
+        db=FirebaseFirestore.getInstance();
+        db.collection("sach").whereEqualTo("LoaiSach","trẻ em").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                    String IdSach=documentSnapshot.getId();
+                    String TenSach=(String)documentSnapshot.get("TenSach");
+                    String GiaSach = (String) documentSnapshot.get("GiaSach");
+                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
+                    String TacGia = (String) documentSnapshot.get("TacGia");
+                    String MoTa = (String) documentSnapshot.get("MoTa");
+                    String HinhSach = (String) documentSnapshot.get("HinhSach");
+
+                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
+                    sachesTreem.add(sach);
+                }
+                sachAdapter3.notifyDataSetChanged();
 
             }
         });

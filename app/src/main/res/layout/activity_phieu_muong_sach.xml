@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".PhieuMuongSachActivity">
+
+    <ImageView
+        android:id="@+id/img_sachphieumuon"
+        android:layout_width="150dp"
+        android:scaleType="fitXY"
+        android:layout_height="200dp"
+        android:src="@drawable/yeulayeuthethoi"/>
+    <TextView
+        android:id="@+id/tv_TenSachphieumuon"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Tên sách"
+        android:textSize="30sp"/>
+    <TextView
+        android:id="@+id/tvgiasachphieumuon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giá sách"
+        android:textSize="20sp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Ngày trả : "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_ngayphieumuon"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="17/6/2003"/>
+        <ImageButton
+            android:id="@+id/btn_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_calendar_month_24"
+            android:background="@null"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số ngày mượn : "
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/tv_songaymuonPhieuSach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="0"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền : "
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tvTongTienPhieuMuon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnThueSachPhieuMuon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thuê"/>
+
+
+</LinearLayout>

@@ -72,6 +72,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:text="Thể loại trẻ em "
+            android:layout_width="200dp"
+            android:layout_height="wrap_content">
+        </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="15dp"
+            android:id="@+id/rcv_SachTreEm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 

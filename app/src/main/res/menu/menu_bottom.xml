@@ -12,6 +12,11 @@
         android:icon="@drawable/baseline_favorite_24"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/mnu_hoadon"
+        android:title="Hóa đơn"
+        android:icon="@drawable/baseline_credit_card_24"
+
+        app:showAsAction="always"/>
     <item android:id="@+id/mnu_canhan"
         android:title="Cá nhân"
         android:icon="@drawable/baseline_person_24"

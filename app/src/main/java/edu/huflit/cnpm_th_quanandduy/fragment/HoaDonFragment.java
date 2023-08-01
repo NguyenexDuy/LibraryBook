@@ -1,21 +1,18 @@
 package edu.huflit.cnpm_th_quanandduy.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,16 +20,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import edu.huflit.cnpm_th_quanandduy.HoaDonApdater;
 import edu.huflit.cnpm_th_quanandduy.R;
-import edu.huflit.cnpm_th_quanandduy.SachYeuThichAdapter;
-import edu.huflit.cnpm_th_quanandduy.model.SachYeuThich;
+import edu.huflit.cnpm_th_quanandduy.model.HoaDon;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link YeuThichFragment#newInstance} factory method to
+ * Use the {@link HoaDonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class YeuThichFragment extends Fragment {
+public class HoaDonFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +40,7 @@ public class YeuThichFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public YeuThichFragment() {
+    public HoaDonFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +50,11 @@ public class YeuThichFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment YeuThichFragment.
+     * @return A new instance of fragment HoaDonFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static YeuThichFragment newInstance(String param1, String param2) {
-        YeuThichFragment fragment = new YeuThichFragment();
+    public static HoaDonFragment newInstance(String param1, String param2) {
+        HoaDonFragment fragment = new HoaDonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,47 +75,42 @@ public class YeuThichFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_yeu_thich, container, false);
+        return inflater.inflate(R.layout.fragment_hoa_don, container, false);
     }
 
-    ArrayList<SachYeuThich> sachYeuThiches;
-    RecyclerView rcv_SachYeuThich;
+    RecyclerView rvHoaDon;
+    ArrayList<HoaDon>   hoaDons;
+    HoaDonApdater hoaDonApdater;
     FirebaseFirestore db;
-    SachYeuThichAdapter sachYeuThichAdapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcv_SachYeuThich=view.findViewById(R.id.rcv_SachYeuThich);
-        sachYeuThiches=new ArrayList<>();
-        sachYeuThich();
-        sachYeuThichAdapter=new SachYeuThichAdapter(getContext(),sachYeuThiches);
-        rcv_SachYeuThich.setAdapter(sachYeuThichAdapter);
-        LinearLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
-        rcv_SachYeuThich.setLayoutManager(layoutManager);
+        rvHoaDon = view.findViewById(R.id.rvHoaDon);
+        hoaDons = new ArrayList<>();
 
+        hoaDonApdater = new HoaDonApdater(hoaDons,getContext());
+        rvHoaDon.setAdapter(hoaDonApdater);
+        rvHoaDon.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        rvHoaDon.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
 
-    }
-    private void sachYeuThich()
-    {
-        db=FirebaseFirestore.getInstance();
-        db.collection("sachYeuThich").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db = FirebaseFirestore.getInstance();
+        db.collection("HoaDon").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                    String IdSachYeuThich=documentSnapshot.getId();
-                    String IdSachGoc=(String) documentSnapshot.get("idSach");
-                    String tenSach=(String) documentSnapshot.get("tenSach");
-                    String loaiSach=(String) documentSnapshot.get("loaiSach");
-                    String tacGia=(String) documentSnapshot.get("tacGia");
-                    String giaSach=(String) documentSnapshot.get("giaSach");
-                    String moTa=(String) documentSnapshot.get("mota");
-                    String hinhSach=(String) documentSnapshot.get("hinhSach");
-                    SachYeuThich sachYeuThich=new SachYeuThich(IdSachYeuThich,IdSachGoc,tenSach,loaiSach,tacGia,giaSach,moTa,hinhSach);
-                    sachYeuThiches.add(sachYeuThich);
+                    String IDHoaDon = documentSnapshot.getId();
+                    String IDSach = (String) documentSnapshot.get("IDSach");
+                    String NgayMuon = (String) documentSnapshot.get("NgayMuon");
+                    String NgayTra = (String) documentSnapshot.get("NgayTra");
+                    String SoNgayMuon = (String) documentSnapshot.get("SoNgayMuon");
+                    String TenSach = (String) documentSnapshot.get("TenSach");
+                    String TongTien = (String) documentSnapshot.get("TongTien");
+                    HoaDon hoaDon = new HoaDon(IDHoaDon,IDSach,TenSach,NgayMuon,NgayTra,SoNgayMuon,TongTien);
+                    hoaDons.add(hoaDon);
                 }
-                sachYeuThichAdapter.notifyDataSetChanged();
+                hoaDonApdater.notifyDataSetChanged();
             }
+
         });
     }
-
 }

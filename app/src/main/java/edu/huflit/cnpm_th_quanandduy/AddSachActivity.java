@@ -103,9 +103,7 @@ public class AddSachActivity extends AppCompatActivity {
     }
     private void uploadImageToFirebaseStorage(Uri imageUri) {
 
-        // Tạo thư mục "images" trong Firebase Storage để lưu trữ hình ảnh
         StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
-        // Tải hình ảnh lên Firebase Storage
         fileReference.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     // Lấy URL tải xuống của hình ảnh
@@ -115,12 +113,10 @@ public class AddSachActivity extends AppCompatActivity {
                                 saveDataToFirestore(uri.toString());
                             })
                             .addOnFailureListener(e -> {
-                                // Xử lý lỗi nếu không lấy được URL tải xuống
                                 Toast.makeText(this, "Không lấy được URL tải xuống", Toast.LENGTH_SHORT).show();
                             });
                 })
                 .addOnFailureListener(e -> {
-                    // Xử lý lỗi nếu việc tải hình ảnh thất bại
                     Toast.makeText(this, "Tải ảnh thất bại", Toast.LENGTH_SHORT).show();
                 });
     }

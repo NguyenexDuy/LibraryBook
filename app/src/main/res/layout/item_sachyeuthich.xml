@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border_edit"
+    android:layout_margin="10sp"
+    android:padding="2sp"
+    app:cardCornerRadius="15dp">
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="3sp"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_sachYeuThich"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/yeulayeuthethoi"/>
+            <ImageView
+                android:id="@+id/img_liked"
+                android:layout_marginStart="110dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/liked"/>
+        </FrameLayout>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_tenSachYeuThich"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="Ten sach"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            />
+
+
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+

@@ -91,7 +91,7 @@ public class DangNhapActivity extends AppCompatActivity {
 
                 if(documentSnapshot.getString("isAdmin")!=null)
                 {
-                    Toast.makeText(DangNhapActivity.this, "Code ngu roi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DangNhapActivity.this, "Đã vào trang admin", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),AdminActivity.class));
                     finish();
                 } else if (documentSnapshot.getString("IsUser")!=null) {

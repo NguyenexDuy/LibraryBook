@@ -1,5 +1,6 @@
 package edu.huflit.cnpm_th_quanandduy.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.concurrent.Executor;
 
+import edu.huflit.cnpm_th_quanandduy.DangNhapActivity;
 import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.model.User;
 
@@ -122,10 +124,19 @@ public class CaNhanFragment extends Fragment {
             // Người dùng chưa đăng nhập, xử lý thông báo tương ứng
             tv_nameUser.setText("Chưa đăng nhập");
         }
-
-
-
-
+        btn_dangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                signOutUser();
+            }
+        });
 
         }
+
+    private void signOutUser() {
+        Intent intent=new Intent(getContext(),DangNhapActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }
