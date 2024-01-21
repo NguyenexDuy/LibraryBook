@@ -58,7 +58,6 @@ public class ChiTietSachActivity extends AppCompatActivity {
         img_yeuThich=findViewById(R.id.img_yeuThich);
         btn_thongTinSachThueSach=findViewById(R.id.btn_thongTinSachThueSach);
         rcvSachLienQuan=findViewById(R.id.rcvSachLienQuan);
-
         sachLienQuan=new ArrayList<>();
         sachesLienQuan();
         sachLienQuanAdapter=new SachAdapter(ChiTietSachActivity.this,sachLienQuan);

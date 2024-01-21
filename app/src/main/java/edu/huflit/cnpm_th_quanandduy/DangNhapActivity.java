@@ -36,7 +36,6 @@ public class DangNhapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
-
         edtGmaillogin=findViewById(R.id.edtGmaillogin);
         edtPassLogin=findViewById(R.id.edtPassLogin);
         btnLogin=findViewById(R.id.btnLogin);
