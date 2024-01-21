@@ -4,80 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/main"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="10dp"
-    android:background="@drawable/background"
-    tools:context=".DangNhapActivity">
+    tools:context=".Activity.DangNhapActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="60dp"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:paddingBottom="25dp"/>
+        android:paddingBottom="25dp"
+        android:text="Login"
+        android:textColor="@color/textColor"
+        android:textSize="60dp" />
 
     <EditText
-        android:textColorHint="@color/white"
         android:id="@+id/edtGmaillogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textColor="@color/white"
-        android:paddingLeft="10dp"
         android:background="@drawable/border_edit"
         android:ems="10"
+        android:hint="Gmail"
         android:inputType="textPersonName"
-        android:hint="Gmail" />
+        android:paddingLeft="10dp"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor" />
 
     <EditText
-        android:textColorHint="@color/white"
         android:id="@+id/edtPassLogin"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_edit"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:textColor="@color/white"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:hint="Password" />
+        android:paddingLeft="10dp"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor" />
 
 
     <Button
-        android:layout_marginTop="10dp"
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/textColor"
         android:text="Login"
-        android:textColor="@color/black"
-        android:backgroundTint="#F0FE9800"/>
+        android:textSize="25dp"
+        android:textColor="@color/white" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="18dp"
             android:text="Bạn chưa có tài khoản? "
-            />
+            android:textColor="@color/textColor"
+            android:textSize="18dp" />
 
         <TextView
-            android:textStyle="bold"
-            android:gravity="center"
             android:id="@+id/registerNow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Tạo tài khoản "
+            android:textColor="@color/rate"
             android:textSize="18dp"
-            android:textColor="#CC99FF"/>
+            android:textStyle="bold" />
     </LinearLayout>
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

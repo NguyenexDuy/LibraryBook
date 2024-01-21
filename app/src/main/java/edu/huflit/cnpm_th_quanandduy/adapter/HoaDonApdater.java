@@ -1,4 +1,4 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.model.HoaDon;
 
 public class HoaDonApdater extends RecyclerView.Adapter<HoaDonApdater.HoaDonVH> {

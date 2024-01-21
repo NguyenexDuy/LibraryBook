@@ -1,5 +1,5 @@
 
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.fragment.DSSachFragment;
 import edu.huflit.cnpm_th_quanandduy.fragment.ThongBaoFragment;
 

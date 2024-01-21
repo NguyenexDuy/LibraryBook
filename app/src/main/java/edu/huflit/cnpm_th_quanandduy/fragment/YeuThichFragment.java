@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.R;
-import edu.huflit.cnpm_th_quanandduy.SachYeuThichAdapter;
+import edu.huflit.cnpm_th_quanandduy.adapter.SachYeuThichAdapter;
 import edu.huflit.cnpm_th_quanandduy.model.SachYeuThich;
 
 /**

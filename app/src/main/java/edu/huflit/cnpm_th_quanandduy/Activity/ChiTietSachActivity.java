@@ -1,4 +1,4 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,20 +17,17 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.play.core.integrity.IntegrityTokenRequest;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.huflit.cnpm_th_quanandduy.R;
+import edu.huflit.cnpm_th_quanandduy.adapter.SachAdapter;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
-import edu.huflit.cnpm_th_quanandduy.model.SachYeuThich;
 
 public class ChiTietSachActivity extends AppCompatActivity {
 

@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import edu.huflit.cnpm_th_quanandduy.HoaDonApdater;
+import edu.huflit.cnpm_th_quanandduy.adapter.HoaDonApdater;
 import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.model.HoaDon;
 

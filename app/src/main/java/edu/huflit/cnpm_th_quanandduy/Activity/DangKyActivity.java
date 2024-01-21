@@ -1,4 +1,4 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +24,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.huflit.cnpm_th_quanandduy.R;
+
 public class DangKyActivity extends AppCompatActivity {
 
     EditText edtGmail, edtPass, edtPassAgain,edtFullName,edtPhone;
     Button btnregister;
     FirebaseAuth mAuth;
     FirebaseFirestore firestore;
-    ProgressBar progressBar;
     TextView loginNow;
 
     @Override
@@ -45,7 +46,6 @@ public class DangKyActivity extends AppCompatActivity {
         btnregister=findViewById(R.id.btnregister);
         mAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
-        progressBar=findViewById(R.id.progressbar);
         loginNow=findViewById(R.id.loginNow);
         loginNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class DangKyActivity extends AppCompatActivity {
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.GONE);
+
                 String email, pass, passAgain,fullname,phone;
                 fullname=edtFullName.getText().toString();
                 phone=edtPhone.getText().toString();
@@ -100,7 +100,7 @@ public class DangKyActivity extends AppCompatActivity {
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
+
                                 if (task.isSuccessful()) {
                                     Toast.makeText(DangKyActivity.this, "Tao tai khoan thanh cong",
                                             Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import edu.huflit.cnpm_th_quanandduy.Activity.EditSachActivity;
+import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
 
 public class DSSachAdapter extends  RecyclerView.Adapter<DSSachAdapter.DSSachViewHolder> {

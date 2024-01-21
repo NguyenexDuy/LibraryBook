@@ -1,6 +1,5 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,21 +13,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import edu.huflit.cnpm_th_quanandduy.R;
+
 public class DangNhapActivity extends AppCompatActivity {
 
     EditText edtGmaillogin, edtPassLogin;
     Button btnLogin;
     TextView registerNow;
-    ProgressBar progressBar;
     FirebaseAuth mAuth;
     FirebaseFirestore firestore;
 
@@ -41,7 +39,6 @@ public class DangNhapActivity extends AppCompatActivity {
         btnLogin=findViewById(R.id.btnLogin);
         mAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
-        progressBar=findViewById(R.id.progressbar);
         registerNow=findViewById(R.id.registerNow);
         registerNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +51,6 @@ public class DangNhapActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.GONE);
                 String email, pass, passAgain;
                 email=edtGmaillogin.getText().toString();
                 pass=edtPassLogin.getText().toString();
@@ -95,7 +91,7 @@ public class DangNhapActivity extends AppCompatActivity {
                     finish();
                 } else if (documentSnapshot.getString("IsUser")!=null) {
 
-                    Intent intent=new Intent(DangNhapActivity.this,MainActivity.class);
+                    Intent intent=new Intent(DangNhapActivity.this, TrangChuActivity.class);
                     startActivity(intent);
                 }
 //                if (documentSnapshot.getString("isUser")!=null)

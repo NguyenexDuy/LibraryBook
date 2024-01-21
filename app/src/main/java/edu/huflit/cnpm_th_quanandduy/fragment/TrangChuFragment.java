@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,9 +23,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.R;
-import edu.huflit.cnpm_th_quanandduy.TimKiemActivity;
+import edu.huflit.cnpm_th_quanandduy.Activity.TimKiemActivity;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
-import edu.huflit.cnpm_th_quanandduy.SachAdapter;
+import edu.huflit.cnpm_th_quanandduy.adapter.SachAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,14 +89,14 @@ public class TrangChuFragment extends Fragment {
     SachAdapter sachAdapter2;
     SachAdapter sachAdapter3;
     FirebaseFirestore db;
-    TextView img_search;
+//    TextView img_search;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rcv_SachKinhDi=view.findViewById(R.id.rcv_SachKinhDi);
         rcv_SachTinhYeu=view.findViewById(R.id.rcv_SachTinhYeu);
         rcv_SachTreEm=view.findViewById(R.id.rcv_SachTreEm);
-        img_search=view.findViewById(R.id.img_search);
+//        img_search=view.findViewById(R.id.img_search);
         sachesKinhDi =new ArrayList<>();
         sachesTinhYeu=new ArrayList<>();
         sachesTreem=new ArrayList<>();
@@ -117,13 +115,13 @@ public class TrangChuFragment extends Fragment {
         rcv_SachKinhDi.setLayoutManager(layoutManager);
         rcv_SachTinhYeu.setLayoutManager(layoutManager2);
         rcv_SachTreEm.setLayoutManager(layoutManager3);
-        img_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getContext(), TimKiemActivity.class);
-                startActivity(intent);
-            }
-        });
+//        img_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
     private void sachesKinhDi() {
 

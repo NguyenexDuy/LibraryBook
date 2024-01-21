@@ -1,4 +1,4 @@
-package edu.huflit.cnpm_th_quanandduy;
+package edu.huflit.cnpm_th_quanandduy.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
+import edu.huflit.cnpm_th_quanandduy.Activity.ChiTietSachActivity;
+import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
 
 public class SachAdapter extends  RecyclerView.Adapter<SachAdapter.SachViewHolder> {
@@ -49,7 +51,7 @@ public class SachAdapter extends  RecyclerView.Adapter<SachAdapter.SachViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context,ChiTietSachActivity.class);
+                Intent intent=new Intent(context, ChiTietSachActivity.class);
                 intent.putExtra("ThongTinSach",sach);
                 context.startActivity(intent);
             }
