@@ -24,8 +24,7 @@ import edu.huflit.cnpm_th_quanandduy.model.Sach;
 public class SachAdapter extends  RecyclerView.Adapter<SachAdapter.SachViewHolder> {
     Context context;
     ArrayList<Sach> saches;
-    FirebaseStorage storage=FirebaseStorage.getInstance();
-    FirebaseFirestore firestore=FirebaseFirestore.getInstance();
+
 
     public SachAdapter(Context context, ArrayList<Sach> saches) {
         this.context = context;

@@ -6,84 +6,92 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/background"
+    android:background="@color/main"
     tools:context=".Activity.DangKyActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor"
         android:textSize="40sp"
         android:gravity="center"/>
-    <EditText
-        android:id="@+id/edtFullname"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:textColor="@color/white"
-        android:background="@drawable/border_edit"
-        android:ems="10"
-        android:textColorHint="@color/white"
-        android:inputType="textPersonName"
-        android:hint="Họ và tên" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edtFullname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/textColor"
+            android:background="@drawable/border_edit"
+            android:ems="10"
+            android:textColorHint="@color/textColor"
+            android:inputType="textPersonName"
+            android:hint="Họ và tên" />
 
-    <EditText
-        android:layout_marginTop="10dp"
-        android:id="@+id/edtGmail"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="@color/white"
-        android:paddingLeft="10dp"
-        android:ems="10"
-        android:textColorHint="@color/white"
-        android:inputType="textPersonName"
-        android:hint="Gmail" />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/edtGmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@color/textColor"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:background="@drawable/border_edit"
+            android:textColorHint="@color/textColor"
+            android:inputType="textPersonName"
+            android:hint="Gmail" />
 
-    <EditText
-        android:id="@+id/edtPass"
-        android:layout_width="match_parent"
-        android:textColor="@color/white"
-        android:layout_marginTop="10dp"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:ems="10"
-        android:textColorHint="@color/white"
-        android:inputType="textPassword"
-        android:hint="Mật khẩu" />
+        <EditText
+            android:id="@+id/edtPass"
+            android:layout_width="match_parent"
+            android:textColor="@color/textColor"
+            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:background="@drawable/border_edit"
+            android:textColorHint="@color/textColor"
+            android:inputType="textPassword"
+            android:hint="Mật khẩu" />
 
-    <EditText
-        android:id="@+id/edtPassAgain"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/border_edit"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:ems="10"
-        android:textColorHint="@color/white"
-        android:inputType="textPassword"
-        android:hint="Nhập lại mật khẩu" />
-    <EditText
-        android:id="@+id/edtPhone"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/border_edit"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:ems="10"
-        android:textColorHint="@color/white"
-        android:inputType="textPersonName"
-        android:hint="Số điện thoại" />
+        <EditText
+            android:id="@+id/edtPassAgain"
+            android:textColor="@color/textColor"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_edit"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:textColorHint="@color/textColor"
+            android:inputType="textPassword"
+            android:hint="Nhập lại mật khẩu" />
+        <EditText
+            android:id="@+id/edtPhone"
+            android:textColor="@color/textColor"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_edit"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:textColorHint="@color/textColor"
+            android:inputType="textPersonName"
+            android:hint="Số điện thoại" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng ký"
-        android:textColor="@color/black"
-        android:backgroundTint="#F0FE9800"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/textColor"
         />
 
     <TextView
@@ -93,7 +101,7 @@
         android:id="@+id/loginNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor"
         android:text="Nhấn vào đây để đăng nhập "/>
 
 

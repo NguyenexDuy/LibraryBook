@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/mnu_trangchu"
+    <item android:id="@+id/home"
         android:title="Trang chủ"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/home"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/mnu_favorite"
-        android:title="Yêu thích"
-        android:icon="@drawable/baseline_favorite_24"
+    <item android:id="@+id/search_view_root"
+        android:title="Tìm kiếm"
+        android:icon="@drawable/search"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/mnu_hoadon"
-        android:title="Hóa đơn"
-        android:icon="@drawable/baseline_credit_card_24"
+    <item android:id="@+id/favorite_book"
+        android:title="Danh sách"
+        android:icon="@drawable/book_open_line"
 
         app:showAsAction="always"/>
-    <item android:id="@+id/mnu_canhan"
-        android:title="Cá nhân"
-        android:icon="@drawable/baseline_person_24"
+    <item android:id="@+id/setting"
+        android:title="Cài đặt"
+        android:icon="@drawable/setting"
         app:showAsAction="always"/>
 </menu>

@@ -9,6 +9,10 @@
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".Activity.DangNhapActivity">
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/abc"/>
 
     <TextView
         android:layout_width="match_parent"

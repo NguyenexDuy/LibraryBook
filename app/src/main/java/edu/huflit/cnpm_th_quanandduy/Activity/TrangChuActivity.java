@@ -33,21 +33,21 @@ public class TrangChuActivity extends AppCompatActivity {
                 return true;
             }
         });
-        display(R.id.mnu_trangchu);
+        display(R.id.home);
     }
     void display(int id){
         Fragment fragment = null;
         switch (id){
-            case R.id.mnu_trangchu:
+            case R.id.home:
                 fragment = new TrangChuFragment();
                 break;
-            case R.id.mnu_favorite:
+            case R.id.search_view_root:
                 fragment = new YeuThichFragment();
                 break;
-            case R.id.mnu_canhan:
+            case R.id.setting:
                 fragment = new CaNhanFragment();
                 break;
-            case R.id.mnu_hoadon:
+            case R.id.favorite_book:
                 fragment = new HoaDonFragment();
                 break;
         }
