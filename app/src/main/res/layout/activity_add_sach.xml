@@ -18,7 +18,7 @@
                     android:id="@+id/imagChonSach"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/yeulayeuthethoi"/>
+                    android:src="@drawable/xatrungnghai"/>
         <EditText
             android:id="@+id/edtTenSach"
             android:layout_marginTop="20dp"

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="50dp"
+        >
+        <ImageView
+            android:id="@+id/img_tacGia"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/tacgia"/>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

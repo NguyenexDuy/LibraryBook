@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,12 +25,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.huflit.cnpm_th_quanandduy.Activity.NotificationActivity;
+import edu.huflit.cnpm_th_quanandduy.Activity.TrangChuActivity;
 import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.Activity.TimKiemActivity;
 import edu.huflit.cnpm_th_quanandduy.adapter.PhotoAdapter;
+import edu.huflit.cnpm_th_quanandduy.adapter.TacGiaAdapter;
 import edu.huflit.cnpm_th_quanandduy.model.Photo;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
 import edu.huflit.cnpm_th_quanandduy.adapter.SachAdapter;
+import edu.huflit.cnpm_th_quanandduy.model.TacGia;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -82,17 +87,19 @@ public class TrangChuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trang_chu, container, false);
+        View view=inflater.inflate(R.layout.fragment_trang_chu, container, false);
+        AnhXa(view);
+        return view;
     }
 
 
-    ArrayList<Sach> sachesKinhDi;
-    ArrayList<Sach> sachesTinhYeu;
     ArrayList<Sach> sachesTreem;
-    RecyclerView rcv_SachKinhDi,rcv_SachTinhYeu,rcv_SachTreEm;
+    ArrayList<TacGia> tacGias;
+    ImageButton img_notifi;
+    RecyclerView rcv_SachKinhDi,rcv_SachTinhYeu,rcv_SachTreEm,rcv_tacGia;
     RecyclerView rcv_sachPhoBien;
     ArrayList<Sach> saches;
-    SachAdapter sachAdapter1;
+    TacGiaAdapter tacGiaAdapter;
     SachAdapter sachAdapter;
     SachAdapter sachAdapter3;
     ViewPager viewPager;
@@ -100,45 +107,50 @@ public class TrangChuFragment extends Fragment {
     PhotoAdapter photoAdapter;
     FirebaseFirestore db;
 //    TextView img_search;
+
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager=view.findViewById(R.id.view_pager);
-        circleIndicator=view.findViewById(R.id.circle_center);
         photoAdapter =new PhotoAdapter(getContext(), getListPhoto());
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
-        rcv_sachPhoBien=view.findViewById(R.id.rcv_sachPhoBien);
         saches=new ArrayList<>();
         GetAllSach();
         sachAdapter=new SachAdapter(getContext(),saches);
         rcv_sachPhoBien.setAdapter(sachAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rcv_sachPhoBien.setLayoutManager(layoutManager);
+        tacGias=new ArrayList<>();
+        GetAllAuthor();
+        tacGiaAdapter=new TacGiaAdapter(getContext(),tacGias);
+        rcv_tacGia.setAdapter(tacGiaAdapter);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcv_tacGia.setLayoutManager(layoutManager1);
 
-//        rcv_SachKinhDi=view.findViewById(R.id.rcv_SachKinhDi);
-//        rcv_SachTinhYeu=view.findViewById(R.id.rcv_SachTinhYeu);
-//        rcv_SachTreEm=view.findViewById(R.id.rcv_SachTreEm);
-//        img_search=view.findViewById(R.id.img_search);
-//        sachesKinhDi =new ArrayList<>();
-//        sachesTinhYeu=new ArrayList<>();
-//        sachesTreem=new ArrayList<>();
-//        sachesTinhYeu();
-//        sachesKinhDi();
-//        sachesTreEm();
-//        sachAdapter1=new SachAdapter(getContext(), sachesKinhDi);
-//        sachAdapter2=new SachAdapter(getContext(),sachesTinhYeu);
-//        sachAdapter3=new SachAdapter(getContext(),sachesTreem);
-//        rcv_SachKinhDi.setAdapter(sachAdapter1);
-//        rcv_SachTinhYeu.setAdapter(sachAdapter2);
-//        rcv_SachTreEm.setAdapter(sachAdapter3);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        LinearLayoutManager layoutManager3 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-//        rcv_SachKinhDi.setLayoutManager(layoutManager);
-//        rcv_SachTinhYeu.setLayoutManager(layoutManager2);
-//        rcv_SachTreEm.setLayoutManager(layoutManager3);
+
+
+    }
+    private void ActionNotifi()
+    {
+        img_notifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void AnhXa(View view)
+    {
+        img_notifi=view.findViewById(R.id.img_notifi);
+        viewPager=view.findViewById(R.id.view_pager);
+        circleIndicator=view.findViewById(R.id.circle_center);
+        rcv_sachPhoBien=view.findViewById(R.id.rcv_sachPhoBien);
+        rcv_tacGia=view.findViewById(R.id.rcv_tacGia);
 
     }
     private List<Photo> getListPhoto(){
@@ -147,6 +159,13 @@ public class TrangChuFragment extends Fragment {
         list.add(new Photo(R.drawable.picture1));
         list.add(new Photo(R.drawable.picture2));
         return list;
+    }
+    private void GetAllAuthor(){
+
+        tacGias.add(new TacGia("a",R.drawable.tacgia));
+        tacGias.add(new TacGia("a",R.drawable.tacgia));
+        tacGias.add(new TacGia("a",R.drawable.tacgia));
+       tacGias.add(new TacGia("a",R.drawable.tacgia));
     }
     private void GetAllSach() {
 
@@ -170,28 +189,6 @@ public class TrangChuFragment extends Fragment {
             }
         });
     }
-    private void sachesTreEm() {
 
-        db=FirebaseFirestore.getInstance();
-        db.collection("sach").whereEqualTo("LoaiSach","trẻ em").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                    String IdSach=documentSnapshot.getId();
-                    String TenSach=(String)documentSnapshot.get("TenSach");
-                    String GiaSach = (String) documentSnapshot.get("GiaSach");
-                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
-                    String TacGia = (String) documentSnapshot.get("TacGia");
-                    String MoTa = (String) documentSnapshot.get("MoTa");
-                    String HinhSach = (String) documentSnapshot.get("HinhSach");
-
-                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
-                    sachesTreem.add(sach);
-                }
-                sachAdapter3.notifyDataSetChanged();
-
-            }
-        });
-    }
 
 }
