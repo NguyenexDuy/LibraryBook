@@ -32,7 +32,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/arrow_left_s_line"
-                       android:background="@color/transparent"
+                       android:background="@drawable/transparent_ripple"
+                       style="@style/imageBtn"
                        app:layout_constraintBottom_toBottomOf="parent"
                        app:layout_constraintStart_toStartOf="parent"
                        app:layout_constraintTop_toTopOf="parent" />
@@ -41,8 +42,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/more_2_line"
-                       android:background="@color/transparent"
-
+                       android:background="@drawable/transparent_ripple"
+                       style="@style/imageBtn"
                        app:layout_constraintBottom_toBottomOf="parent"
                        app:layout_constraintEnd_toEndOf="parent"
                        app:layout_constraintTop_toTopOf="parent" />
@@ -154,8 +155,8 @@
                    android:id="@+id/img_Save"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:background="@drawable/transparent_ripple"
                    android:src="@drawable/bookmark_line"
+                   android:background="@drawable/transparent_ripple"
                    style="@style/imageBtn"
                    app:layout_constraintBottom_toBottomOf="parent"
                    app:layout_constraintEnd_toEndOf="parent"

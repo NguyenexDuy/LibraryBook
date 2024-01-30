@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import edu.huflit.cnpm_th_quanandduy.Activity.NotificationActivity;
 import edu.huflit.cnpm_th_quanandduy.Activity.TrangChuActivity;
@@ -31,6 +32,7 @@ import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.Activity.TimKiemActivity;
 import edu.huflit.cnpm_th_quanandduy.adapter.PhotoAdapter;
 import edu.huflit.cnpm_th_quanandduy.adapter.TacGiaAdapter;
+import edu.huflit.cnpm_th_quanandduy.model.Firebase;
 import edu.huflit.cnpm_th_quanandduy.model.Photo;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
 import edu.huflit.cnpm_th_quanandduy.adapter.SachAdapter;
@@ -92,7 +94,7 @@ public class TrangChuFragment extends Fragment {
         return view;
     }
 
-
+    Firebase firebase;
     ArrayList<Sach> sachesTreem;
     ArrayList<TacGia> tacGias;
     ImageButton img_notifi;
@@ -117,12 +119,9 @@ public class TrangChuFragment extends Fragment {
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
-        saches=new ArrayList<>();
-        GetAllSach();
-        sachAdapter=new SachAdapter(getContext(),saches);
-        rcv_sachPhoBien.setAdapter(sachAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        rcv_sachPhoBien.setLayoutManager(layoutManager);
+
+        SetData();
+
         tacGias=new ArrayList<>();
         GetAllAuthor();
         tacGiaAdapter=new TacGiaAdapter(getContext(),tacGias);
@@ -132,6 +131,19 @@ public class TrangChuFragment extends Fragment {
 
 
 
+    }
+    private void SetData(){
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcv_sachPhoBien.setLayoutManager(layoutManager1);
+        firebase.GetAllSach(new Firebase.FirebaseCallback<Sach>() {
+            @Override
+            public void onCallback(ArrayList<Sach> list) {
+                saches=list;
+                sachAdapter=new SachAdapter(getContext(),saches);
+                rcv_sachPhoBien.setAdapter(sachAdapter);
+                sachAdapter.notifyDataSetChanged();
+            }
+        });
     }
     private void ActionNotifi()
     {
@@ -151,6 +163,7 @@ public class TrangChuFragment extends Fragment {
         circleIndicator=view.findViewById(R.id.circle_center);
         rcv_sachPhoBien=view.findViewById(R.id.rcv_sachPhoBien);
         rcv_tacGia=view.findViewById(R.id.rcv_tacGia);
+        firebase=new Firebase(getContext());
 
     }
     private List<Photo> getListPhoto(){
@@ -167,28 +180,7 @@ public class TrangChuFragment extends Fragment {
         tacGias.add(new TacGia("a",R.drawable.tacgia));
        tacGias.add(new TacGia("a",R.drawable.tacgia));
     }
-    private void GetAllSach() {
 
-        db=FirebaseFirestore.getInstance();
-        db.collection("sach").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                    String IdSach=documentSnapshot.getId();
-                    String TenSach=(String)documentSnapshot.get("TenSach");
-                    String GiaSach = (String) documentSnapshot.get("GiaSach");
-                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
-                    String TacGia = (String) documentSnapshot.get("TacGia");
-                    String MoTa = (String) documentSnapshot.get("MoTa");
-                    String HinhSach = (String) documentSnapshot.get("HinhSach");
-
-                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
-                    saches.add(sach);
-                }
-                sachAdapter.notifyDataSetChanged();
-            }
-        });
-    }
 
 
 }

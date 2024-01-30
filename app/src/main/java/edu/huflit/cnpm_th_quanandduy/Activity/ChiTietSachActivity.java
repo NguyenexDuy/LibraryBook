@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.adapter.SachAdapter;
@@ -50,21 +51,38 @@ public class ChiTietSachActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chi_tiet_sach);
 
         AnhXa();
-        sach=(Sach) getIntent().getSerializableExtra("ThongTinSach");
-        Glide.with(ChiTietSachActivity.this).load(sach.getHinhSach()).into(img_thongTinSachImg);
-        Glide.with(ChiTietSachActivity.this).load(sach.getHinhSach()).into(img_plur);
-        db=FirebaseFirestore.getInstance();
+        SetData();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             img_plur.setRenderEffect(RenderEffect.createBlurEffect(50,50, Shader.TileMode.MIRROR));
         }
+        ActionListen();
 
 
+    }
+    private void SetData()
+    {
+        sach=(Sach) getIntent().getSerializableExtra("ThongTinSach");
+        Glide.with(ChiTietSachActivity.this).load(sach.getHinhSach()).into(img_thongTinSachImg);
+        Glide.with(ChiTietSachActivity.this).load(sach.getHinhSach()).into(img_plur);
+        String tenTacGia=sach.getTacGia();
+        String tenSach=sach.getTenSach();
+        String theloai=sach.getLoaiSach();
+        tv_TenSachChiTiet.setText(tenSach);
+        tv_thongTinSachTenTacGia.setText(tenTacGia);
+        tv_TheLoai.setText(theloai);
 
     }
     private void ActionListen()
     {
-        Intent intent=new Intent(ChiTietSachActivity.this,PlayAudioBookActivity.class);
-        startActivity(intent);
+        btn_Nghe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ChiTietSachActivity.this,PlayAudioBookActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     private void AnhXa()
     {
