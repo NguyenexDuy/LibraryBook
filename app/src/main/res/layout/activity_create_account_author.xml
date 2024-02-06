@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main"
+    android:gravity="center"
+    tools:context=".Activity.CreateAccountAuthorActivity">
+
+
+    <EditText
+        android:id="@+id/edt_gmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gmail"/>
+    <EditText
+        android:id="@+id/edt_matkhau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mật khẩu"/>
+    <EditText
+        android:id="@+id/edt_ten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ten"/>
+    <EditText
+        android:id="@+id/edt_tuoi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tuoi"/>
+    <EditText
+        android:id="@+id/edt_kinhngiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kinh nghiem"/>
+
+    <Button
+        android:id="@+id/btn_tao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:hint="Tạo"/>
+</LinearLayout>

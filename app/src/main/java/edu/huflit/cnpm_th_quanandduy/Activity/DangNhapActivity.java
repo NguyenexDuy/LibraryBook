@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,27 +77,23 @@ public class DangNhapActivity extends AppCompatActivity {
     }
 
     private void checkRoleUser(String uid) {
-        DocumentReference dr=firestore.collection("user").document(uid);
+        DocumentReference dr=firestore.collection("User").document(uid);
         dr.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("Tag","onSucess"+documentSnapshot.getData());
 
-                if(documentSnapshot.getString("isAdmin")!=null)
+                if(documentSnapshot.getString("Status")!="A")
                 {
                     Toast.makeText(DangNhapActivity.this, "Đã vào trang admin", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                    startActivity(new Intent(getApplicationContext(), AuthorActivity.class));
                     finish();
-                } else if (documentSnapshot.getString("IsUser")!=null) {
+                } else if (documentSnapshot.getString("Status")!="U") {
 
                     Intent intent=new Intent(DangNhapActivity.this, TrangChuActivity.class);
                     startActivity(intent);
                 }
-//                if (documentSnapshot.getString("isUser")!=null)
-//                {
-//                    Intent intent=new Intent(DangNhapActivity.this,MainActivity.class);
-//                    startActivity(intent);
-//                }
+
             }
         });
 

@@ -67,6 +67,7 @@ public class DangKyActivity extends AppCompatActivity {
                 passAgain=edtPassAgain.getText().toString();
 
 
+
                 if(TextUtils.isEmpty(email))
                 {
                     Toast.makeText(DangKyActivity.this, "Vui long nhap email", Toast.LENGTH_SHORT).show();
@@ -105,12 +106,13 @@ public class DangKyActivity extends AppCompatActivity {
                                     Toast.makeText(DangKyActivity.this, "Tao tai khoan thanh cong",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user=mAuth.getCurrentUser();
-                                    DocumentReference dr=firestore.collection("user").document(user.getUid());
+                                    DocumentReference dr=firestore.collection("User").document(user.getUid());
                                     Map<String,Object> userInfo=new HashMap<>();
                                     userInfo.put("HovaTen",fullname);
                                     userInfo.put("SoDienThoai",phone);
                                     userInfo.put("UserEmail",email);
-                                    userInfo.put("IsUser","1");
+                                    userInfo.put("Password",pass);
+                                    userInfo.put("Status","U");
                                     dr.set(userInfo);
 
                                 } else {

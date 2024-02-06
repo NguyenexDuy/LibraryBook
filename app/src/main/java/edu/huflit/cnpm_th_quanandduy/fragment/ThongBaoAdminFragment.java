@@ -12,10 +12,10 @@ import edu.huflit.cnpm_th_quanandduy.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ThongBaoFragment#newInstance} factory method to
+ * Use the {@link ThongBaoAdminFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ThongBaoFragment extends Fragment {
+public class ThongBaoAdminFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class ThongBaoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ThongBaoFragment() {
+    public ThongBaoAdminFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class ThongBaoFragment extends Fragment {
      * @return A new instance of fragment ThongBaoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ThongBaoFragment newInstance(String param1, String param2) {
-        ThongBaoFragment fragment = new ThongBaoFragment();
+    public static ThongBaoAdminFragment newInstance(String param1, String param2) {
+        ThongBaoAdminFragment fragment = new ThongBaoAdminFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class ThongBaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_thong_bao, container, false);
+        return inflater.inflate(R.layout.fragment_setting_admin, container, false);
     }
 }

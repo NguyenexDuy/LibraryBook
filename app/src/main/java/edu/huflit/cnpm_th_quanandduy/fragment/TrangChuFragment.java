@@ -123,7 +123,7 @@ public class TrangChuFragment extends Fragment {
         SetData();
 
         tacGias=new ArrayList<>();
-        GetAllAuthor();
+//        GetAllAuthor();
         tacGiaAdapter=new TacGiaAdapter(getContext(),tacGias);
         rcv_tacGia.setAdapter(tacGiaAdapter);
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -173,13 +173,13 @@ public class TrangChuFragment extends Fragment {
         list.add(new Photo(R.drawable.picture2));
         return list;
     }
-    private void GetAllAuthor(){
-
-        tacGias.add(new TacGia("a",R.drawable.tacgia));
-        tacGias.add(new TacGia("a",R.drawable.tacgia));
-        tacGias.add(new TacGia("a",R.drawable.tacgia));
-       tacGias.add(new TacGia("a",R.drawable.tacgia));
-    }
+//    private void GetAllAuthor(){
+//
+//        tacGias.add(new TacGia("a",R.drawable.tacgia));
+//        tacGias.add(new TacGia("a",R.drawable.tacgia));
+//        tacGias.add(new TacGia("a",R.drawable.tacgia));
+//       tacGias.add(new TacGia("a",R.drawable.tacgia));
+//    }
 
 
 

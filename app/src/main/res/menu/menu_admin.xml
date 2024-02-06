@@ -2,13 +2,18 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item android:title="Sách"
         android:id="@+id/mnu_sach"
-        android:icon="@drawable/baseline_menu_book_24"
+        android:icon="@drawable/home"
+        app:showAsAction="always"/>
+    <item android:title=""
+        android:id="@+id/mnu_money"
+        android:icon="@drawable/money"
         app:showAsAction="always"/>
     <item android:title="Thông báo"
-        android:id="@+id/mnu_thongbao"
-        android:icon="@drawable/baseline_notifications_24"
+        android:id="@+id/mnu_setting"
+        android:icon="@drawable/setting"
         app:showAsAction="always"/>
 
 </menu>

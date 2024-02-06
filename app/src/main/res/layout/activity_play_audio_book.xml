@@ -9,6 +9,7 @@
     tools:context=".Activity.PlayAudioBookActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="20dp"
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

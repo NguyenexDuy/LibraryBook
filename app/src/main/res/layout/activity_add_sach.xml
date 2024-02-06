@@ -1,62 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.AddSachActivity">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp">
-
-
-                <ImageView
-                    android:id="@+id/imagChonSach"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/xatrungnghai"/>
-        <EditText
-            android:id="@+id/edtTenSach"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Tên sách"/>
-        <EditText
-            android:id="@+id/edtTenTacGia"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Tên tác giả"/>
-        <EditText
-            android:id="@+id/edtTheLoai"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Thể loại"/>
-        <EditText
-            android:id="@+id/edtMoTa"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Mô tả"/>
-        <EditText
-            android:id="@+id/edtGiaSach"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Giá sách"/>
-
-        <Button
-            android:id="@+id/btnTaiSach"
-            android:layout_marginTop="50dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tải sách"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn hình ảnh"
+                android:textColor="@color/black"
+                />
 
-    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:id="@+id/imagChonSach"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/xatrungnghai"/>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn file âm thanh"
+                android:textColor="@color/black"
+                />
+            <ImageButton
+                android:id="@+id/img_sound"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_ripple"
+                style="@style/imageBtn"
+                android:src="@drawable/filemusic_icon"/>
+            <EditText
+                android:id="@+id/edtTenSach"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Tên sách"/>
+            <EditText
+                android:id="@+id/edtTenTacGia"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Tên tác giả"/>
+            <EditText
+                android:id="@+id/edtTheLoai"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Thể loại"/>
+            <EditText
+                android:id="@+id/edtMoTa"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Mô tả"/>
+            <EditText
+                android:id="@+id/edtGiaSach"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Giá sách"/>
+
+            <Button
+                android:id="@+id/btnTaiSach"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tải sách"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

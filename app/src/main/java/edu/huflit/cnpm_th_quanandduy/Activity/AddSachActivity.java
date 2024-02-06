@@ -4,8 +4,10 @@ package edu.huflit.cnpm_th_quanandduy.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +30,7 @@ public class AddSachActivity extends AppCompatActivity {
 
 
     private static final int PICK_IMAGE_REQUEST =1 ;
-    ImageView imagChonSach;
+    ImageView imagChonSach,img_sound;
     EditText edtTenSach;
     EditText edtTenTacGia;
     EditText edtTheLoai;
@@ -48,7 +50,7 @@ public class AddSachActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sach);
-        openFilePicker();
+
 
         imagChonSach=findViewById(R.id.imagChonSach);
         edtTenSach=findViewById(R.id.edtTenSach);
@@ -57,6 +59,7 @@ public class AddSachActivity extends AppCompatActivity {
         edtMoTa=findViewById(R.id.edtMoTa);
         edtGiaSach=findViewById(R.id.edtGiaSach);
         btnTaiSach=findViewById(R.id.btnTaiSach);
+        img_sound=findViewById(R.id.img_sound);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("images/");
         firestore = FirebaseFirestore.getInstance();
@@ -79,13 +82,27 @@ public class AddSachActivity extends AppCompatActivity {
                 openFileChooser();
             }
         });
+        img_sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSoundFileChooser();
+            }
+        });
 
     }
-    private void uploadImageAndAudioToFirebaseStorage(Uri imageUri, Uri audioUri) {
-        // Tải hình ảnh lên Firebase Storage
-        uploadImageToFirebaseStorage(imageUri, audioUri);
-    }
 
+    private  void  openSoundFileChooser()
+    {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("audio/*");  // Chỉ hiển thị các tệp âm thanh
+        startActivityForResult(intent, PICK_AUDIO_REQUEST);
+    }
+    private void openFileChooser() {
+        Intent intent=new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,100);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,24 +120,17 @@ public class AddSachActivity extends AppCompatActivity {
 
             // Thực hiện xử lý với URI tệp âm thanh đã chọn
             handleSelectedAudio(mp3);
+            int changeimg=R.drawable.filemusic_fill;
+            Drawable newImageDrawable = ContextCompat.getDrawable(AddSachActivity.this, changeimg);
+            img_sound.setImageDrawable(newImageDrawable);
         }
     }
     private void handleSelectedAudio(Uri audioUri) {
-        // Ở đây, bạn có thể thực hiện các thao tác với tệp âm thanh đã chọn
-        // Ví dụ: lưu trữ URI để tải lên Firebase Storage
+
         Toast.makeText(this, "Đã chọn âm thanh: " + audioUri.toString(), Toast.LENGTH_SHORT).show();
     }
-    private void openFilePicker() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("audio/*");  // Chỉ hiển thị các tệp âm thanh
-        startActivityForResult(intent, PICK_AUDIO_REQUEST);
-    }
-    private void openFileChooser() {
-        Intent intent=new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,100);
-    }
+
+
     private void uploadImageToFirebaseStorage(Uri imageUri,Uri audioUri) {
 
         StorageReference imageRef  = storageReference.child(System.currentTimeMillis() + ".jpg");
@@ -174,7 +184,7 @@ public class AddSachActivity extends AppCompatActivity {
         sach.put("MP3",audioDownloadUrl);
 
         // Thêm dữ liệu vào Firestore
-        firestore.collection("sach")
+        firestore.collection("Book")
                 .add(sach)
                 .addOnSuccessListener(documentReference -> {
                     // Dữ liệu đã được lưu trữ thành công vào Firestore

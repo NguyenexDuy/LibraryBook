@@ -41,10 +41,7 @@ public class ChiTietSachActivity extends AppCompatActivity {
     ImageView img_plur,img_thongTinSachImg;
     TextView tv_TenSachChiTiet,tv_thongTinSachTenTacGia,tv_ThoiGianAudio,tv_LuotXem,tv_TheLoai,tv_GioiThieu,tv_danhGia;
     RecyclerView rcv_tacPhamCoLienQuan;
-    ArrayList<Sach> sachLienQuan;
     Button btn_Nghe;
-    FirebaseFirestore db;
-    SachAdapter sachLienQuanAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

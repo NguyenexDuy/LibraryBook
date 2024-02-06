@@ -29,10 +29,10 @@ import edu.huflit.cnpm_th_quanandduy.model.Sach;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DSSachFragment#newInstance} factory method to
+ * Use the {@link HomeAdminFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DSSachFragment extends Fragment {
+public class HomeAdminFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +43,7 @@ public class DSSachFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DSSachFragment() {
+    public HomeAdminFragment() {
         // Required empty public constructor
     }
 
@@ -56,8 +56,8 @@ public class DSSachFragment extends Fragment {
      * @return A new instance of fragment DSSachFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DSSachFragment newInstance(String param1, String param2) {
-        DSSachFragment fragment = new DSSachFragment();
+    public static HomeAdminFragment newInstance(String param1, String param2) {
+        HomeAdminFragment fragment = new HomeAdminFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,7 +78,7 @@ public class DSSachFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_d_s_sach, container, false);
+        return inflater.inflate(R.layout.fragment_home_admin, container, false);
     }
 
     ArrayList<Sach> saches2;
