@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class CreateAccountAuthorActivity extends AppCompatActivity {
     EditText edt_gmail,edt_matkhau,edt_ten,edt_tuoi,edt_kinhngiem;
     FirebaseFirestore firestore;
     FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class CreateAccountAuthorActivity extends AppCompatActivity {
         firestore=FirebaseFirestore.getInstance();
         mAuth=FirebaseAuth.getInstance();
 
+
     }
 
     private void UploadData()
@@ -65,33 +68,34 @@ public class CreateAccountAuthorActivity extends AppCompatActivity {
         String kinh_nghiem=edt_kinhngiem.getText().toString();
         String picture="";
         String status="A";
-        int kinhNghiem=Integer.parseInt(kinh_nghiem);
+
         mAuth.createUserWithEmailAndPassword(gmail,maukhau)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
+                            firebaseUser=mAuth.getCurrentUser();
+                            String userId = firebaseUser.getUid();
                             Toast.makeText(CreateAccountAuthorActivity.this, "Tao thanh cong", Toast.LENGTH_SHORT).show();
                             Map<String, Object> tacgia=new HashMap<>();
                             tacgia.put("Gmail",gmail);
                             tacgia.put("PassWord",maukhau);
                             tacgia.put("Ten",ten);
                             tacgia.put("Age",tuoi);
-                            tacgia.put("Experience", kinhNghiem);
+                            tacgia.put("Experience", kinh_nghiem);
                             tacgia.put("Avatar",picture);
                             tacgia.put("Status",status);
 
-                            firestore.collection("Author")
-                                    .add(tacgia)
+                            firestore.collection("User")
+                                    .document(userId)
+                                    .set(tacgia)
                                     .addOnSuccessListener(documentReference -> {
                                         Toast.makeText(CreateAccountAuthorActivity.this, "Tải lên thành công", Toast.LENGTH_SHORT).show();
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(CreateAccountAuthorActivity.this, "Tải lên thất bại", Toast.LENGTH_SHORT).show();
                                     });
-
-
                         }
                         else
                         {

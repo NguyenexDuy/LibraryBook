@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -13,18 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.Activity.AddSachActivity;
-import edu.huflit.cnpm_th_quanandduy.adapter.DSSachAdapter;
 import edu.huflit.cnpm_th_quanandduy.R;
+import edu.huflit.cnpm_th_quanandduy.adapter.SachAdminAdapter;
+import edu.huflit.cnpm_th_quanandduy.model.Firebase;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
 
 /**
@@ -81,53 +83,78 @@ public class HomeAdminFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home_admin, container, false);
     }
 
-    ArrayList<Sach> saches2;
-    RecyclerView rcv_Sach2;
-    DSSachAdapter sachAdapter2;
-    ImageButton btnAddSach;
+    ArrayList<Sach> saches;
+    RecyclerView rcv_sach;
+    ImageButton btnAddSach,img_avtAdmin,img_notifi;
+    TextView tv_tenTacGiaAdmin;
     FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    Firebase firebase;
+    String author;
+    SachAdminAdapter sachAdminAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rcv_Sach2=view.findViewById(R.id.rvDSSach);
-        btnAddSach = view.findViewById(R.id.btnThemSachAdmin);
-        saches2=new ArrayList<>();
-        sachAdapter2=new DSSachAdapter(getContext(), saches2);
-        rcv_Sach2.setAdapter(sachAdapter2);
-        rcv_Sach2.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        AnhXa(view);
+        if(firebaseUser!=null)
+        {
+             author=firebaseUser.getUid();
 
 
-        btnAddSach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), AddSachActivity.class));
-            }
-        });
-    }
+                DocumentReference admin=db.collection("User").document(author);
+                admin.get().addOnSuccessListener(documentSnapshot -> {
+                    if(documentSnapshot.exists())
+                    {
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        saches2.clear();
-        db=FirebaseFirestore.getInstance();
-        db.collection("sach").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                    String IdSach=documentSnapshot.getId();
-                    String TenSach=(String)documentSnapshot.get("TenSach");
-                    String GiaSach = (String) documentSnapshot.get("GiaSach");
-                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
-                    String TacGia = (String) documentSnapshot.get("TacGia");
-                    String MoTa = (String) documentSnapshot.get("MoTa");
-                    String HinhSach = (String) documentSnapshot.get("HinhSach");
-                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
-                    saches2.add(sach);
+                        tv_tenTacGiaAdmin.setText(documentSnapshot.getString("Ten"));
+                    }
+                    else {
+                        tv_tenTacGiaAdmin.setText("User");
+                    }
+                });
+
+                SetData();
+
+            btnAddSach.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getContext(), AddSachActivity.class));
                 }
-                sachAdapter2.notifyDataSetChanged();
+            });
+
+        }
+
+    }
+    private void SetData()
+    {
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        rcv_sach.setLayoutManager(layoutManager1);
+        firebase.GetAllSachOfAdmin(author,new Firebase.FirebaseCallback<Sach>() {
+            @Override
+            public void onCallback(ArrayList<Sach> list) {
+                saches=list;
+                sachAdminAdapter=new SachAdminAdapter(saches,getContext());
+                rcv_sach.setAdapter(sachAdminAdapter);
             }
         });
+
     }
+
+    private void AnhXa(View view)
+    {
+        img_avtAdmin=view.findViewById(R.id.img_avtAdmin);
+        img_notifi=view.findViewById(R.id.img_notifi);
+        tv_tenTacGiaAdmin=view.findViewById(R.id.tv_tenTacGiaAdmin);
+        btnAddSach = view.findViewById(R.id.btnThemSachAdmin);
+        db=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser=firebaseAuth.getCurrentUser();
+        rcv_sach=view.findViewById(R.id.rvDSSach);
+        firebase= new Firebase(getContext());
+
+    }
+
 }

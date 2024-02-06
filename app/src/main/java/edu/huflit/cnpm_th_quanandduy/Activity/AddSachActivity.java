@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,7 +35,6 @@ public class AddSachActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST =1 ;
     ImageView imagChonSach,img_sound;
     EditText edtTenSach;
-    EditText edtTenTacGia;
     EditText edtTheLoai;
     EditText edtMoTa;
     EditText edtGiaSach;
@@ -41,6 +43,10 @@ public class AddSachActivity extends AppCompatActivity {
     Uri mp3;
     StorageReference storageReference;
     FirebaseFirestore firestore;
+
+    FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
     private static final int PICK_AUDIO_REQUEST = 1;
 
 
@@ -54,12 +60,14 @@ public class AddSachActivity extends AppCompatActivity {
 
         imagChonSach=findViewById(R.id.imagChonSach);
         edtTenSach=findViewById(R.id.edtTenSach);
-        edtTenTacGia=findViewById(R.id.edtTenTacGia);
         edtTheLoai=findViewById(R.id.edtTheLoai);
         edtMoTa=findViewById(R.id.edtMoTa);
         edtGiaSach=findViewById(R.id.edtGiaSach);
         btnTaiSach=findViewById(R.id.btnTaiSach);
         img_sound=findViewById(R.id.img_sound);
+        db=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser=firebaseAuth.getCurrentUser();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("images/");
         firestore = FirebaseFirestore.getInstance();
@@ -69,6 +77,7 @@ public class AddSachActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (imageUri != null&&mp3!=null) {
                     // Tải hình ảnh lên Firebase Storage
+                    Log.d("Tag","ảnh và sound ko null");
                     uploadImageToFirebaseStorage(imageUri,mp3);
                 } else {
                     Toast.makeText(AddSachActivity.this, "Hãy chọn một hình ảnh", Toast.LENGTH_SHORT).show();
@@ -140,7 +149,7 @@ public class AddSachActivity extends AppCompatActivity {
                     imageRef .getDownloadUrl()
                             .addOnSuccessListener(uri -> {
                                 Toast.makeText(this, "tải dữ liệu thành công", Toast.LENGTH_SHORT).show();
-//                                saveDataToFirestore(uri.toString());
+
                                 uploadAudioToFirebaseStorage(audioUri, uri.toString());
                             })
                             .addOnFailureListener(e -> {
@@ -167,32 +176,44 @@ public class AddSachActivity extends AppCompatActivity {
     }
 
     private void saveDataToFirestore(String imageUri, String audioDownloadUrl) {
-        String tenSach = edtTenSach.getText().toString();
-        String tenTacGia = edtTenTacGia.getText().toString();
-        String theLoai = edtTheLoai.getText().toString();
-        String moTa = edtMoTa.getText().toString();
-        String giaSach = edtGiaSach.getText().toString();
+        String id=firebaseUser.getUid();
+
+        DocumentReference nameAuthor=db.collection("User").document(id);
+        nameAuthor.get().addOnSuccessListener(documentSnapshot -> {
+            if(documentSnapshot.exists())
+            {
+                String tenTacgia=documentSnapshot.getString("Ten");
+                String tenSach = edtTenSach.getText().toString();
+                String theLoai = edtTheLoai.getText().toString();
+                String moTa = edtMoTa.getText().toString();
+                String giaSach = edtGiaSach.getText().toString();
+                Map<String, Object> sach = new HashMap<>();
+                sach.put("IdTacGia",id);
+                sach.put("TenSach",tenSach);
+                sach.put("TacGia",tenTacgia);
+                sach.put("LoaiSach",theLoai);
+                sach.put("GiaSach",giaSach);
+                sach.put("MoTa",moTa);
+                sach.put("HinhSach",imageUri);
+                sach.put("MP3",audioDownloadUrl);
+
+                // Thêm dữ liệu vào Firestore
+                firestore.collection("Book")
+                        .add(sach)
+                        .addOnSuccessListener(documentReference -> {
+                            // Dữ liệu đã được lưu trữ thành công vào Firestore
+                            Toast.makeText(this, "Tải lên thành công", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            // Xử lý lỗi nếu việc lưu dữ liệu vào Firestore thất bại
+                            Toast.makeText(this, "Tải lên thất bại", Toast.LENGTH_SHORT).show();
+                        });
+            }
+
+        });
 
 
-        Map<String, Object> sach = new HashMap<>();
-        sach.put("TenSach",tenSach);
-        sach.put("TacGia",tenTacGia);
-        sach.put("LoaiSach",theLoai);
-        sach.put("GiaSach",giaSach);
-        sach.put("MoTa",moTa);
-        sach.put("HinhSach",imageUri);
-        sach.put("MP3",audioDownloadUrl);
 
-        // Thêm dữ liệu vào Firestore
-        firestore.collection("Book")
-                .add(sach)
-                .addOnSuccessListener(documentReference -> {
-                    // Dữ liệu đã được lưu trữ thành công vào Firestore
-                    Toast.makeText(this, "Tải lên thành công", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý lỗi nếu việc lưu dữ liệu vào Firestore thất bại
-                    Toast.makeText(this, "Tải lên thất bại", Toast.LENGTH_SHORT).show();
-                });
+
     }
 }

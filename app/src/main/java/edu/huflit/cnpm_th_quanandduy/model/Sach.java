@@ -7,21 +7,25 @@ import java.io.Serializable;
 public class Sach implements Serializable {
 
     private String IdSach;
+    private String IdTacGia;
     private String TenSach;
     private String LoaiSach;
     private String TacGia;
     private String GiaSach;
     private String Mota;
     private String HinhSach;
+    private String Mp3;
 
-    public Sach(String IDSach,String tenSach, String giaSach, String loaiSach, String tacGia, String mota, String hinhSach) {
+    public Sach(String IDSach,String tenSach,String idTacGia, String giaSach, String loaiSach, String tacGia, String mota, String hinhSach,String Mp3) {
         IdSach=IDSach;
         TenSach = tenSach;
+        this.IdTacGia=idTacGia;
         LoaiSach = loaiSach;
         TacGia = tacGia;
         GiaSach = giaSach;
         Mota = mota;
         HinhSach = hinhSach;
+        this.Mp3=Mp3;
     }
 
     public String getIdSach() {

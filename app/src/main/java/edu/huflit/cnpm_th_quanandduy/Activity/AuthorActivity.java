@@ -36,6 +36,7 @@ public class AuthorActivity extends AppCompatActivity {
         display(R.id.mnu_sach);
     }
 
+
     void display(int id){
         Fragment fragment = null;
         switch (id){

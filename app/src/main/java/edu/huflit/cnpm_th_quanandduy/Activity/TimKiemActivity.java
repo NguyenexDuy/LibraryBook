@@ -48,15 +48,15 @@ public class TimKiemActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                    String IdSach=documentSnapshot.getId();
-                    String TenSach=(String)documentSnapshot.get("TenSach");
-                    String GiaSach = (String) documentSnapshot.get("GiaSach");
-                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
-                    String TacGia = (String) documentSnapshot.get("TacGia");
-                    String MoTa = (String) documentSnapshot.get("MoTa");
-                    String HinhSach = (String) documentSnapshot.get("HinhSach");
-                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
-                    saches.add(sach);
+//                    String IdSach=documentSnapshot.getId();
+//                    String TenSach=(String)documentSnapshot.get("TenSach");
+//                    String GiaSach = (String) documentSnapshot.get("GiaSach");
+//                    String LoaiSach = (String) documentSnapshot.get("LoaiSach");
+//                    String TacGia = (String) documentSnapshot.get("TacGia");
+//                    String MoTa = (String) documentSnapshot.get("MoTa");
+//                    String HinhSach = (String) documentSnapshot.get("HinhSach");
+//                    Sach sach=new Sach(IdSach,TenSach,GiaSach,LoaiSach,TacGia,MoTa,HinhSach);
+//                    saches.add(sach);
                 }
                 timKiemSachAdapter.notifyDataSetChanged();
             }

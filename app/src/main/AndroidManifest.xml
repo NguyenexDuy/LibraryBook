@@ -15,8 +15,11 @@
         android:theme="@style/Theme.CNPM_TH_QUANANDDUY"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.CreateAccountAuthorActivity"
+            android:name=".Activity.ChiTietAuthorActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.CreateAccountAuthorActivity"
+            android:exported="true" />
         <activity
             android:name=".Activity.AdminActivity"
             android:exported="true" />
@@ -52,7 +55,7 @@
             android:exported="true" />
         <activity
             android:name=".Activity.DangNhapActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.TrangChuActivity"
             android:exported="true">

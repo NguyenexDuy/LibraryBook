@@ -1,6 +1,9 @@
 package edu.huflit.cnpm_th_quanandduy.model;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -36,27 +39,97 @@ public class Firebase {
         void onCallback(ArrayList<T> list);
     }
 
+
+
     public void GetAllSach(FirebaseCallback<Sach> callback) {
 
         ArrayList<Sach> saches=new ArrayList<>();
 
         mfirestore=FirebaseFirestore.getInstance();
 
-        mfirestore.collection("sach").get().addOnCompleteListener(task -> {
+        mfirestore.collection("Book").get().addOnCompleteListener(task -> {
             if (task.isSuccessful())
             {
                 for (QueryDocumentSnapshot document : task.getResult()){
-                    Sach sach=new Sach(document.getId(),
+                    Sach sach=new Sach(
+                            document.getId(),
                             document.getString("TenSach"),
+                            document.getString("IdTacGia"),
                             document.getString("GiaSach"),
                             document.getString("LoaiSach"),
                             document.getString("TacGia"),
                             document.getString("MoTa"),
-                            document.getString("HinhSach"));
+                            document.getString("HinhSach"),
+                            document.getString("MP3")
+                    );
                     saches.add(sach);
                 }
                 callback.onCallback(saches);
             }
         });
+    }
+
+    public void GetAllAuthor(FirebaseCallback<TacGia> callback)
+    {
+        ArrayList<TacGia> tacGias=new ArrayList<>();
+        mfirestore=FirebaseFirestore.getInstance();
+        mfirestore.collection("User")
+                .whereEqualTo("Status","A")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful())
+                    {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot:task.getResult())
+                        {
+                            TacGia tacGia=new TacGia(
+                                    queryDocumentSnapshot.getString("Ten"),
+                                    queryDocumentSnapshot.getString("Gmail"),
+                                    queryDocumentSnapshot.getString("PassWord"),
+                                    queryDocumentSnapshot.getString("Age"),
+                                    queryDocumentSnapshot.getString("Experience"),
+                                    queryDocumentSnapshot.getString("Avatar")
+                            );
+                            tacGias.add(tacGia);
+                        }
+                        callback.onCallback(tacGias);
+                    }
+                    else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+    }
+    public void GetAllSachOfAdmin( String idTacGia,FirebaseCallback<Sach> callback)
+    {
+        ArrayList<Sach> saches=new ArrayList<>();
+
+        mfirestore=FirebaseFirestore.getInstance();
+        mfirestore.collection("Book")
+                .whereEqualTo("IdTacGia",idTacGia)
+                .get()
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful())
+                    {
+                        for (QueryDocumentSnapshot documentSnapshot:task.getResult())
+                        {
+                            Sach sach=new Sach(
+                                    documentSnapshot.getId(),
+                                    documentSnapshot.getString("TenSach"),
+                                    documentSnapshot.getString("IdTacGia"),
+                                    documentSnapshot.getString("GiaSach"),
+                                    documentSnapshot.getString("LoaiSach"),
+                                    documentSnapshot.getString("TacGia"),
+                                    documentSnapshot.getString("MoTa"),
+                                    documentSnapshot.getString("HinhSach"),
+                                    documentSnapshot.getString("MP3")
+                            );
+                            saches.add(sach);
+                        }
+                        callback.onCallback(saches);
+                    }
+                    else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
     }
 }

@@ -1,22 +1,18 @@
 package edu.huflit.cnpm_th_quanandduy.model;
 
-import android.widget.ImageView;
-
 public class TacGia {
+
     private  String tenTacGia;
     private  String gmail;
     private  String matkhau;
     private  String tuoi;
-    private  int kinh_Nghiem;
+    private  String kinh_Nghiem;
 
     private String img_TacGia;
 
-    public TacGia(String tenTacGia, String img_TacGia) {
-        this.tenTacGia = tenTacGia;
-        this.img_TacGia = img_TacGia;
-    }
 
-    public TacGia(String tenTacGia, String gmail, String matkhau, String tuoi, int kinh_Nghiem, String img_TacGia) {
+
+    public TacGia(String tenTacGia, String gmail, String matkhau, String tuoi, String kinh_Nghiem, String img_TacGia) {
         this.tenTacGia = tenTacGia;
         this.gmail = gmail;
         this.matkhau = matkhau;

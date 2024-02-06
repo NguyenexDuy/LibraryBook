@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class DangNhapActivity extends AppCompatActivity {
     TextView registerNow;
     FirebaseAuth mAuth;
     FirebaseFirestore firestore;
+    ProgressBar pb_dangnhap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class DangNhapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dang_nhap);
         edtGmaillogin=findViewById(R.id.edtGmaillogin);
         edtPassLogin=findViewById(R.id.edtPassLogin);
+        pb_dangnhap=findViewById(R.id.pb_dangnhap);
         btnLogin=findViewById(R.id.btnLogin);
         mAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
@@ -50,9 +53,12 @@ public class DangNhapActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pb_dangnhap.setVisibility(View.VISIBLE);
                 String email, pass, passAgain;
                 email=edtGmaillogin.getText().toString();
                 pass=edtPassLogin.getText().toString();
+
+
 
                 if(TextUtils.isEmpty(email))
                 {
@@ -81,18 +87,20 @@ public class DangNhapActivity extends AppCompatActivity {
         dr.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                pb_dangnhap.setVisibility(View.GONE);
+
                 Log.d("Tag","onSucess"+documentSnapshot.getData());
 
-                if(documentSnapshot.getString("Status")!="A")
+                if(documentSnapshot.getString("Status").equals("A"))
                 {
                     Toast.makeText(DangNhapActivity.this, "Đã vào trang admin", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), AuthorActivity.class));
-                    finish();
-                } else if (documentSnapshot.getString("Status")!="U") {
+                } else if (documentSnapshot.getString("Status").equals("U")) {
 
                     Intent intent=new Intent(DangNhapActivity.this, TrangChuActivity.class);
                     startActivity(intent);
                 }
+
 
             }
         });

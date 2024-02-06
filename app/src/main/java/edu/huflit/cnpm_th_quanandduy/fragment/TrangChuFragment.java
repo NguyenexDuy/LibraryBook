@@ -95,19 +95,20 @@ public class TrangChuFragment extends Fragment {
     }
 
     Firebase firebase;
-    ArrayList<Sach> sachesTreem;
+
     ArrayList<TacGia> tacGias;
     ImageButton img_notifi;
-    RecyclerView rcv_SachKinhDi,rcv_SachTinhYeu,rcv_SachTreEm,rcv_tacGia;
+    RecyclerView rcv_tacGia;
     RecyclerView rcv_sachPhoBien;
     ArrayList<Sach> saches;
     TacGiaAdapter tacGiaAdapter;
     SachAdapter sachAdapter;
-    SachAdapter sachAdapter3;
+
     ViewPager viewPager;
     CircleIndicator circleIndicator;
     PhotoAdapter photoAdapter;
-    FirebaseFirestore db;
+    TextView tv_userName;
+
 //    TextView img_search;
 
 
@@ -119,21 +120,17 @@ public class TrangChuFragment extends Fragment {
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
-
         SetData();
+        ActionNotifi();
 
-        tacGias=new ArrayList<>();
-//        GetAllAuthor();
-        tacGiaAdapter=new TacGiaAdapter(getContext(),tacGias);
-        rcv_tacGia.setAdapter(tacGiaAdapter);
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        rcv_tacGia.setLayoutManager(layoutManager1);
 
 
 
     }
     private void SetData(){
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcv_tacGia.setLayoutManager(layoutManager);
         rcv_sachPhoBien.setLayoutManager(layoutManager1);
         firebase.GetAllSach(new Firebase.FirebaseCallback<Sach>() {
             @Override
@@ -142,6 +139,14 @@ public class TrangChuFragment extends Fragment {
                 sachAdapter=new SachAdapter(getContext(),saches);
                 rcv_sachPhoBien.setAdapter(sachAdapter);
                 sachAdapter.notifyDataSetChanged();
+            }
+        });
+        firebase.GetAllAuthor(new Firebase.FirebaseCallback<TacGia>() {
+            @Override
+            public void onCallback(ArrayList<TacGia> list) {
+                tacGias=list;
+                tacGiaAdapter=new TacGiaAdapter(getContext(),tacGias);
+                rcv_tacGia.setAdapter(tacGiaAdapter);
             }
         });
     }
@@ -173,13 +178,7 @@ public class TrangChuFragment extends Fragment {
         list.add(new Photo(R.drawable.picture2));
         return list;
     }
-//    private void GetAllAuthor(){
-//
-//        tacGias.add(new TacGia("a",R.drawable.tacgia));
-//        tacGias.add(new TacGia("a",R.drawable.tacgia));
-//        tacGias.add(new TacGia("a",R.drawable.tacgia));
-//       tacGias.add(new TacGia("a",R.drawable.tacgia));
-//    }
+
 
 
 
