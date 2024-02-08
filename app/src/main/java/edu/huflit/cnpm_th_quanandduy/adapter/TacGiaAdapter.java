@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.R;
@@ -34,7 +36,9 @@ public class TacGiaAdapter extends RecyclerView.Adapter<TacGiaAdapter.TacGiaView
 
     @Override
     public void onBindViewHolder(@NonNull TacGiaViewHolder holder, int position) {
-
+        TacGia tacGia=tacGias.get(position);
+        String imageUri= tacGia.getImg_TacGia();
+        Glide.with(holder.itemView.getContext()).load(imageUri).into(holder.img_tacGia);
     }
 
     @Override

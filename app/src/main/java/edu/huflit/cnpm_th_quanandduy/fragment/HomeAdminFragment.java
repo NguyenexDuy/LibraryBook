@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,6 +94,8 @@ public class HomeAdminFragment extends Fragment {
     Firebase firebase;
     String author;
     SachAdminAdapter sachAdminAdapter;
+    ProgressBar progess;
+    int count=0;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

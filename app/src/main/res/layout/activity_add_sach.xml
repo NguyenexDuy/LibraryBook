@@ -22,6 +22,7 @@
                 android:background="@drawable/transparent_ripple"
                 style="@style/imageBtn"
                 android:src="@drawable/arrow_left_s_line"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,6 +37,11 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:src="@drawable/xatrungnghai"/>
+            <ProgressBar
+                android:id="@+id/progress_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
             <TextView
                 android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
@@ -51,6 +57,11 @@
                 android:background="@drawable/transparent_ripple"
                 style="@style/imageBtn"
                 android:src="@drawable/filemusic_icon"/>
+            <ProgressBar
+                android:id="@+id/progess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
             <EditText
                 android:id="@+id/edtTenSach"
                 android:layout_marginTop="20dp"

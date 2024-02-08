@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/img_backChiTietTacGia"
                 style="@style/imageBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,6 +36,7 @@
                 app:cardCornerRadius="10dp">
 
                 <ImageView
+                    android:id="@+id/img_thongTinTacGia"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:scaleType="fitXY"
@@ -42,6 +44,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/tv_tenTacGiaChiTiet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -52,6 +55,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/btn_theoDoi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -100,7 +104,6 @@
 
                 <TextView
                     android:id="@+id/tv_experience"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -127,7 +130,6 @@
 
                 <TextView
                     android:id="@+id/tv_favorite"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -154,7 +156,6 @@
 
                 <TextView
                     android:id="@+id/tv_quantity"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -180,6 +181,7 @@
                    android:textColor="@color/black"
                    android:textSize="20dp"/>
                <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/rcv_sachLienQuan"
                    android:layout_marginHorizontal="10dp"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"

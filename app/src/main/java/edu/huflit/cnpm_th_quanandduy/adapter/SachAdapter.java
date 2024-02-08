@@ -45,6 +45,7 @@ public class SachAdapter extends  RecyclerView.Adapter<SachAdapter.SachViewHolde
     public void onBindViewHolder(@NonNull SachViewHolder holder, int position) {
         Sach sach=saches.get(position);
         holder.TenSach.setText(sach.getTenSach());
+        holder.TenTacGia.setText(sach.getTacGia());
         String imageUri= sach.getHinhSach();
         Glide.with(holder.itemView.getContext()).load(imageUri).into(holder.HinhSach);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -68,11 +69,13 @@ public class SachAdapter extends  RecyclerView.Adapter<SachAdapter.SachViewHolde
 
         ImageView HinhSach;
         TextView TenSach;
+        TextView TenTacGia;
 
         public SachViewHolder(@NonNull View itemView) {
             super(itemView);
             HinhSach=itemView.findViewById(R.id.img_sachAdmin);
             TenSach=itemView.findViewById(R.id.tv_tenSachAdmin);
+            TenTacGia=itemView.findViewById(R.id.tv_tenTacGia);
 
         }
     }

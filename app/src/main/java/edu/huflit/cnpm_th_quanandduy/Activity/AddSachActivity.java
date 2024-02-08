@@ -2,10 +2,13 @@ package edu.huflit.cnpm_th_quanandduy.Activity;
 
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -15,23 +18,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.huflit.cnpm_th_quanandduy.R;
+import edu.huflit.cnpm_th_quanandduy.databinding.ActivityAddSachBinding;
 
 public class AddSachActivity extends AppCompatActivity {
 
-
+    private ActivityAddSachBinding activityAddSachBinding;
     private static final int PICK_IMAGE_REQUEST =1 ;
     ImageView imagChonSach,img_sound;
     EditText edtTenSach;
@@ -47,15 +55,14 @@ public class AddSachActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    ProgressBar progess;
     private static final int PICK_AUDIO_REQUEST = 1;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_sach);
+        activityAddSachBinding=ActivityAddSachBinding.inflate(getLayoutInflater());
+        setContentView(activityAddSachBinding.getRoot());
 
 
         imagChonSach=findViewById(R.id.imagChonSach);
@@ -63,7 +70,6 @@ public class AddSachActivity extends AppCompatActivity {
         edtTheLoai=findViewById(R.id.edtTheLoai);
         edtMoTa=findViewById(R.id.edtMoTa);
         edtGiaSach=findViewById(R.id.edtGiaSach);
-        btnTaiSach=findViewById(R.id.btnTaiSach);
         img_sound=findViewById(R.id.img_sound);
         db=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -71,8 +77,12 @@ public class AddSachActivity extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("images/");
         firestore = FirebaseFirestore.getInstance();
+        progess=findViewById(R.id.progess);
+        progess.setVisibility(View.GONE);
+        activityAddSachBinding.progressImg.setVisibility(View.GONE);
 
-        btnTaiSach.setOnClickListener(new View.OnClickListener() {
+
+        activityAddSachBinding.btnTaiSach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (imageUri != null&&mp3!=null) {
@@ -127,6 +137,7 @@ public class AddSachActivity extends AppCompatActivity {
             // Lấy URI của tệp âm thanh được chọn
              mp3 = data.getData();
 
+
             // Thực hiện xử lý với URI tệp âm thanh đã chọn
             handleSelectedAudio(mp3);
             int changeimg=R.drawable.filemusic_fill;
@@ -142,37 +153,79 @@ public class AddSachActivity extends AppCompatActivity {
 
     private void uploadImageToFirebaseStorage(Uri imageUri,Uri audioUri) {
 
-        StorageReference imageRef  = storageReference.child(System.currentTimeMillis() + ".jpg");
-        imageRef .putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    // Lấy URL tải xuống của hình ảnh
-                    imageRef .getDownloadUrl()
-                            .addOnSuccessListener(uri -> {
-                                Toast.makeText(this, "tải dữ liệu thành công", Toast.LENGTH_SHORT).show();
 
-                                uploadAudioToFirebaseStorage(audioUri, uri.toString());
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(this, "Không lấy được URL tải xuống", Toast.LENGTH_SHORT).show();
-                            });
-                })
-                .addOnFailureListener(e -> {
+        StorageReference imageRef  = storageReference.child(System.currentTimeMillis() + ".jpg");
+        activityAddSachBinding.progressImg.setVisibility(View.VISIBLE);
+//        imageRef .putFile(imageUri)
+//                .addOnSuccessListener(taskSnapshot -> {
+//                    // Lấy URL tải xuống của hình ảnh
+//                    imageRef .getDownloadUrl()
+//                            .addOnSuccessListener(uri -> {
+//                                Toast.makeText(this, "tải hình ảnh  thành công", Toast.LENGTH_SHORT).show();
+//
+//                                uploadAudioToFirebaseStorage(audioUri, uri.toString());
+//                            })
+//                            .addOnFailureListener(e -> {
+//                                Toast.makeText(this, "Không lấy được URL tải xuống", Toast.LENGTH_SHORT).show();
+//                            });
+//                })
+//                .addOnFailureListener(e -> {
+//                    Toast.makeText(this, "Tải ảnh thất bại", Toast.LENGTH_SHORT).show();
+//                });
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imageRef.getDownloadUrl()
+                                .addOnSuccessListener(imageDowloadUrl->{
+                                    uploadAudioToFirebaseStorage(audioUri,imageDowloadUrl.toString());
+                                    Toast.makeText(AddSachActivity.this, "Tải hình ảnh thành công", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double pre=(100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                        activityAddSachBinding.progressImg.setProgress((int) pre);
+                    }
+                }).addOnFailureListener(e -> {
                     Toast.makeText(this, "Tải ảnh thất bại", Toast.LENGTH_SHORT).show();
                 });
+
     }
     private void uploadAudioToFirebaseStorage(Uri audioUri, String imageDownloadUrl) {
         StorageReference audioRef = storageReference.child("audio/" + System.currentTimeMillis() + ".mp3");
-        audioRef.putFile(audioUri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    // Lấy URL tải xuống của âm thanh
-                    audioRef.getDownloadUrl().addOnSuccessListener(audioDownloadUrl -> {
-                        // Tải thông tin sách lên Firestore sau khi tải âm thanh thành công
-                        saveDataToFirestore(imageDownloadUrl, audioDownloadUrl.toString());
-                    });
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Tải âm thanh thất bại", Toast.LENGTH_SHORT).show();
+//        audioRef.putFile(audioUri)
+//                .addOnSuccessListener(taskSnapshot -> {
+//                    // Lấy URL tải xuống của âm thanh
+//                    audioRef.getDownloadUrl().addOnSuccessListener(audioDownloadUrl -> {
+//                        // Tải thông tin sách lên Firestore sau khi tải âm thanh thành công
+//                        Toast.makeText(this, "Tải âm thanh thành con công", Toast.LENGTH_SHORT).show();
+//                        saveDataToFirestore(imageDownloadUrl, audioDownloadUrl.toString());
+//                    });
+//                })
+//                .addOnFailureListener(e -> {
+//                    Toast.makeText(this, "Tải âm thanh thất bại", Toast.LENGTH_SHORT).show();
+//                });
+
+        progess.setVisibility(View.VISIBLE);
+
+        audioRef.putFile(audioUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(AddSachActivity.this, "Tai am thanh thanh cong", Toast.LENGTH_SHORT).show();
+                audioRef.getDownloadUrl().addOnSuccessListener(audioDownloadUrl->{
+                    saveDataToFirestore(imageDownloadUrl, audioDownloadUrl.toString());
                 });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double press=(100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                progess.setProgress((int) press);
+            }
+        });
+
     }
 
     private void saveDataToFirestore(String imageUri, String audioDownloadUrl) {
@@ -203,11 +256,25 @@ public class AddSachActivity extends AppCompatActivity {
                         .addOnSuccessListener(documentReference -> {
                             // Dữ liệu đã được lưu trữ thành công vào Firestore
                             Toast.makeText(this, "Tải lên thành công", Toast.LENGTH_SHORT).show();
+
+
+                            AlertDialog.Builder myDialog=new AlertDialog.Builder(AddSachActivity.this);
+                            myDialog.setTitle("Tải thành công");
+                            myDialog.setMessage("Chúc mừng bạn đã tải thành công!");
+                            myDialog.setIcon(R.drawable.icon_notice);
+                            myDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            });
+                            myDialog.create().show();
                         })
                         .addOnFailureListener(e -> {
                             // Xử lý lỗi nếu việc lưu dữ liệu vào Firestore thất bại
                             Toast.makeText(this, "Tải lên thất bại", Toast.LENGTH_SHORT).show();
                         });
+
             }
 
         });

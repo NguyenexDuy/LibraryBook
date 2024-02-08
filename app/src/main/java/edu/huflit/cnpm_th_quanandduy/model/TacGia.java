@@ -21,6 +21,38 @@ public class TacGia {
         this.img_TacGia = img_TacGia;
     }
 
+    public String getGmail() {
+        return gmail;
+    }
+
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
+    }
+
+    public String getMatkhau() {
+        return matkhau;
+    }
+
+    public void setMatkhau(String matkhau) {
+        this.matkhau = matkhau;
+    }
+
+    public String getTuoi() {
+        return tuoi;
+    }
+
+    public void setTuoi(String tuoi) {
+        this.tuoi = tuoi;
+    }
+
+    public String getKinh_Nghiem() {
+        return kinh_Nghiem;
+    }
+
+    public void setKinh_Nghiem(String kinh_Nghiem) {
+        this.kinh_Nghiem = kinh_Nghiem;
+    }
+
     public String getTenTacGia() {
         return tenTacGia;
     }
