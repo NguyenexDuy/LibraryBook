@@ -121,9 +121,6 @@ public class TrangChuFragment extends Fragment {
         SetData();
         ActionNotifi();
 
-
-
-
     }
     private void SetData(){
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);

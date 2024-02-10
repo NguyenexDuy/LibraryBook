@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class AddSachActivity extends AppCompatActivity {
     Button btnTaiSach;
     Uri imageUri;
     Uri mp3;
+    ImageButton btn_backAddSach;
     StorageReference storageReference;
     FirebaseFirestore firestore;
 
@@ -80,6 +82,7 @@ public class AddSachActivity extends AppCompatActivity {
         progess=findViewById(R.id.progess);
         progess.setVisibility(View.GONE);
         activityAddSachBinding.progressImg.setVisibility(View.GONE);
+        btn_backAddSach=findViewById(R.id.btn_backAddSach);
 
 
         activityAddSachBinding.btnTaiSach.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +110,7 @@ public class AddSachActivity extends AppCompatActivity {
                 openSoundFileChooser();
             }
         });
+        btn_backAddSach.setOnClickListener(v -> onBackPressed());
 
     }
 
