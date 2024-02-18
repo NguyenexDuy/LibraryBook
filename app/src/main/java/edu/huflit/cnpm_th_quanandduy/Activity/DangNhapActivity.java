@@ -58,6 +58,8 @@ public class DangNhapActivity extends AppCompatActivity {
             String email, pass, passAgain;
             email=activityDangNhapBinding.edtGmaillogin.getText().toString();
             pass=activityDangNhapBinding.edtPassLogin.getText().toString();
+            email="duy129345@gmail.com";
+            pass="duy123";
 
 
 

@@ -82,6 +82,8 @@ public class AddSachActivity extends AppCompatActivity {
         progess=findViewById(R.id.progess);
         progess.setVisibility(View.GONE);
         activityAddSachBinding.progressImg.setVisibility(View.GONE);
+        activityAddSachBinding.tvProgressImg.setVisibility(View.GONE);
+        activityAddSachBinding.tvProgressAudio.setVisibility(View.GONE);
         btn_backAddSach=findViewById(R.id.btn_backAddSach);
 
 
@@ -160,6 +162,7 @@ public class AddSachActivity extends AppCompatActivity {
 
         StorageReference imageRef  = storageReference.child(System.currentTimeMillis() + ".jpg");
         activityAddSachBinding.progressImg.setVisibility(View.VISIBLE);
+        activityAddSachBinding.tvProgressImg.setVisibility(View.VISIBLE);
 //        imageRef .putFile(imageUri)
 //                .addOnSuccessListener(taskSnapshot -> {
 //                    // Lấy URL tải xuống của hình ảnh
@@ -184,6 +187,8 @@ public class AddSachActivity extends AppCompatActivity {
                                 .addOnSuccessListener(imageDowloadUrl->{
                                     uploadAudioToFirebaseStorage(audioUri,imageDowloadUrl.toString());
                                     Toast.makeText(AddSachActivity.this, "Tải hình ảnh thành công", Toast.LENGTH_SHORT).show();
+                                    activityAddSachBinding.progressImg.setVisibility(View.GONE);
+                                    activityAddSachBinding.tvProgressImg.setText("Đã tải 100 %");
                         });
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -191,6 +196,7 @@ public class AddSachActivity extends AppCompatActivity {
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                         double pre=(100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
                         activityAddSachBinding.progressImg.setProgress((int) pre);
+                        activityAddSachBinding.tvProgressImg.setText(pre+" %");
                     }
                 }).addOnFailureListener(e -> {
                     Toast.makeText(this, "Tải ảnh thất bại", Toast.LENGTH_SHORT).show();
@@ -213,11 +219,14 @@ public class AddSachActivity extends AppCompatActivity {
 //                });
 
         progess.setVisibility(View.VISIBLE);
+        activityAddSachBinding.tvProgressAudio.setVisibility(View.VISIBLE);
 
         audioRef.putFile(audioUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(AddSachActivity.this, "Tai am thanh thanh cong", Toast.LENGTH_SHORT).show();
+                activityAddSachBinding.progess.setVisibility(View.GONE);
+                activityAddSachBinding.tvProgressAudio.setText("Đã tải 100 %");
                 audioRef.getDownloadUrl().addOnSuccessListener(audioDownloadUrl->{
                     saveDataToFirestore(imageDownloadUrl, audioDownloadUrl.toString());
                 });
@@ -227,6 +236,7 @@ public class AddSachActivity extends AppCompatActivity {
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                 double press=(100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
                 progess.setProgress((int) press);
+                activityAddSachBinding.tvProgressAudio.setText(press+ " %");
             }
         });
 

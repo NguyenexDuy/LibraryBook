@@ -83,4 +83,20 @@ public class Sach implements Serializable {
     public void setHinhSach(String hinhSach) {
         HinhSach = hinhSach;
     }
+
+    public String getIdTacGia() {
+        return IdTacGia;
+    }
+
+    public void setIdTacGia(String idTacGia) {
+        IdTacGia = idTacGia;
+    }
+
+    public String getMp3() {
+        return Mp3;
+    }
+
+    public void setMp3(String mp3) {
+        Mp3 = mp3;
+    }
 }

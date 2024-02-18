@@ -38,6 +38,13 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:src="@drawable/xatrungnghai"/>
+            <TextView
+                android:id="@+id/tv_progressImg"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0.0 %"/>
             <ProgressBar
                 android:id="@+id/progress_img"
                 android:layout_width="match_parent"
@@ -50,14 +57,22 @@
                 android:text="Chọn file âm thanh"
                 android:textColor="@color/black"
                 />
+
             <ImageButton
                 android:id="@+id/img_sound"
-                android:layout_marginTop="10dp"
+                style="@style/imageBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/transparent_ripple"
-                style="@style/imageBtn"
-                android:src="@drawable/filemusic_icon"/>
+                android:src="@drawable/filemusic_icon" />
+            <TextView
+                android:id="@+id/tv_progressAudio"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0.0 %"/>
             <ProgressBar
                 android:id="@+id/progess"
                 android:layout_width="match_parent"

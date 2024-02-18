@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.R;
@@ -35,6 +37,12 @@ public class SachAdminAdapter extends RecyclerView.Adapter<SachAdminAdapter.Sach
 
     @Override
     public void onBindViewHolder(@NonNull SachAdminViewHolder holder, int position) {
+        Sach sach=saches.get(position);
+        holder.tv_tacphamAdmin.setText(sach.getTacGia());
+        holder.tv_priceAdmin.setText(sach.getGiaSach());
+        holder.tv_theloaiAdmin.setText(sach.getLoaiSach());
+        String imageUri= sach.getHinhSach();
+        Glide.with(holder.itemView.getContext()).load(imageUri).into(holder.img_sachAdminn);
 
     }
 

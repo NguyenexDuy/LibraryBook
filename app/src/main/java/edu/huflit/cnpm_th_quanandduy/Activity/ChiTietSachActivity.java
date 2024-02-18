@@ -76,6 +76,7 @@ public class ChiTietSachActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ChiTietSachActivity.this,PlayAudioBookActivity.class);
+                intent.putExtra("AudioBook",sach);
                 startActivity(intent);
             }
         });
