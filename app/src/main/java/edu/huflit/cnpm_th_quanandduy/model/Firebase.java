@@ -4,6 +4,8 @@ import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -131,5 +134,22 @@ public class Firebase {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
+    }
+    public void GetNameUser(TextView name)
+    {
+        if(mfirebaseUser!=null)
+        {
+            String id=mfirebaseUser.getUid();
+            DocumentReference user=mfirestore.collection("User").document(id);
+            user.get().addOnSuccessListener(documentSnapshot -> {
+                if(documentSnapshot.exists())
+                {
+                    name.setText(documentSnapshot.getString("HovaTen"));
+                }
+                else {
+                    name.setText("CC");
+                }
+            });
+        }
     }
 }

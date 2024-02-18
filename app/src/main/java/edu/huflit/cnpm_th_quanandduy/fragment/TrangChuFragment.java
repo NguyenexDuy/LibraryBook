@@ -16,20 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import edu.huflit.cnpm_th_quanandduy.Activity.NotificationActivity;
-import edu.huflit.cnpm_th_quanandduy.Activity.TrangChuActivity;
 import edu.huflit.cnpm_th_quanandduy.R;
-import edu.huflit.cnpm_th_quanandduy.Activity.TimKiemActivity;
 import edu.huflit.cnpm_th_quanandduy.adapter.PhotoAdapter;
 import edu.huflit.cnpm_th_quanandduy.adapter.TacGiaAdapter;
 import edu.huflit.cnpm_th_quanandduy.model.Firebase;
@@ -95,6 +88,7 @@ public class TrangChuFragment extends Fragment {
     }
 
     Firebase firebase;
+    FirebaseUser firebaseUser;
 
     ArrayList<TacGia> tacGias;
     ImageButton img_notifi;
@@ -108,6 +102,7 @@ public class TrangChuFragment extends Fragment {
     CircleIndicator circleIndicator;
     PhotoAdapter photoAdapter;
     TextView tv_userName;
+    String name;
 
 //    TextView img_search;
 
@@ -120,8 +115,10 @@ public class TrangChuFragment extends Fragment {
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         SetData();
         ActionNotifi();
+        firebase.GetNameUser(tv_userName);
 
     }
+
     private void SetData(){
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -163,6 +160,7 @@ public class TrangChuFragment extends Fragment {
         circleIndicator=view.findViewById(R.id.circle_center);
         rcv_sachPhoBien=view.findViewById(R.id.rcv_sachPhoBien);
         rcv_tacGia=view.findViewById(R.id.rcv_tacGia);
+        tv_userName=view.findViewById(R.id.tv_userName);
         firebase=new Firebase(getContext());
 
     }

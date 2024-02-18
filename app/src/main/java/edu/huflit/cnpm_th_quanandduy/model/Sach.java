@@ -28,6 +28,9 @@ public class Sach implements Serializable {
         this.Mp3=Mp3;
     }
 
+    public Sach() {
+    }
+
     public String getIdSach() {
         return IdSach;
     }

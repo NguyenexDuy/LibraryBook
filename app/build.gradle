@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'edu.huflit.cnpm_th_quanandduy'
     compileSdk 34
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "edu.huflit.cnpm_th_quanandduy"

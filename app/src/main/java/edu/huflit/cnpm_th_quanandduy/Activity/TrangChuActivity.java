@@ -15,7 +15,7 @@ import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.fragment.CaNhanFragment;
 import edu.huflit.cnpm_th_quanandduy.fragment.HoaDonFragment;
 import edu.huflit.cnpm_th_quanandduy.fragment.TrangChuFragment;
-import edu.huflit.cnpm_th_quanandduy.fragment.YeuThichFragment;
+import edu.huflit.cnpm_th_quanandduy.fragment.TimKiemFragment;
 
 public class TrangChuActivity extends AppCompatActivity {
 
@@ -42,7 +42,7 @@ public class TrangChuActivity extends AppCompatActivity {
                 fragment = new TrangChuFragment();
                 break;
             case R.id.search_view_root:
-                fragment = new YeuThichFragment();
+                fragment = new TimKiemFragment();
                 break;
             case R.id.setting:
                 fragment = new CaNhanFragment();

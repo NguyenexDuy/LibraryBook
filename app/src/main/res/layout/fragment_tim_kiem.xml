@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.TimKiemFragment"
+    android:orientation="vertical">
+    
+   <androidx.cardview.widget.CardView
+       android:id="@+id/cardView_Search"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:cardCornerRadius="5dp"
+       android:layout_marginTop="10dp"
+       android:layout_marginHorizontal="10dp"
+       app:cardElevation="5dp">
+       <androidx.appcompat.widget.SearchView
+           android:id="@+id/searchView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:queryHint="Tìm kiếm ở đây"
+           app:iconifiedByDefault="false"/>
+   </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_sachTimKiem"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+
+
+</LinearLayout>
