@@ -1,6 +1,7 @@
 package edu.huflit.cnpm_th_quanandduy.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import edu.huflit.cnpm_th_quanandduy.Activity.ChiTietAuthorActivity;
+import edu.huflit.cnpm_th_quanandduy.Activity.ChiTietSachActivity;
 import edu.huflit.cnpm_th_quanandduy.R;
 import edu.huflit.cnpm_th_quanandduy.model.TacGia;
 
@@ -39,6 +42,14 @@ public class TacGiaAdapter extends RecyclerView.Adapter<TacGiaAdapter.TacGiaView
         TacGia tacGia=tacGias.get(position);
         String imageUri= tacGia.getImg_TacGia();
         Glide.with(holder.itemView.getContext()).load(imageUri).into(holder.img_tacGia);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, ChiTietAuthorActivity.class);
+                intent.putExtra("ThongTinTacGia",tacGia);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,8 @@
 package edu.huflit.cnpm_th_quanandduy.model;
 
-public class TacGia {
+import java.io.Serializable;
+
+public class TacGia implements Serializable {
 
     private  String tenTacGia;
     private  String gmail;
