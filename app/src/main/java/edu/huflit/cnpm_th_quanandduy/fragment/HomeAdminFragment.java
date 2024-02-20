@@ -1,11 +1,13 @@
 package edu.huflit.cnpm_th_quanandduy.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -14,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,7 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 import edu.huflit.cnpm_th_quanandduy.Activity.AddSachActivity;
+import edu.huflit.cnpm_th_quanandduy.ItemTouchHelperListener;
 import edu.huflit.cnpm_th_quanandduy.R;
+import edu.huflit.cnpm_th_quanandduy.RecycleViewTouchHelper;
 import edu.huflit.cnpm_th_quanandduy.adapter.SachAdminAdapter;
 import edu.huflit.cnpm_th_quanandduy.model.Firebase;
 import edu.huflit.cnpm_th_quanandduy.model.Sach;
@@ -35,7 +41,7 @@ import edu.huflit.cnpm_th_quanandduy.model.Sach;
  * Use the {@link HomeAdminFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeAdminFragment extends Fragment {
+public class HomeAdminFragment extends Fragment implements ItemTouchHelperListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +101,7 @@ public class HomeAdminFragment extends Fragment {
     String author;
     SachAdminAdapter sachAdminAdapter;
     ProgressBar progess;
+    LinearLayout root_View;
     int count=0;
 
     @Override
@@ -157,7 +164,33 @@ public class HomeAdminFragment extends Fragment {
         firebaseUser=firebaseAuth.getCurrentUser();
         rcv_sach=view.findViewById(R.id.rvDSSach);
         firebase= new Firebase(getContext());
-
+        root_View=view.findViewById(R.id.root_View);
+        ItemTouchHelper.SimpleCallback simpleCallback=new RecycleViewTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(rcv_sach);
     }
 
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
+        if(viewHolder instanceof SachAdminAdapter.SachAdminViewHolder){
+            String nameDeleted=saches.get(viewHolder.getAbsoluteAdapterPosition()).getTenSach();
+
+            final Sach sach=saches.get(viewHolder.getAbsoluteAdapterPosition());
+            final int indexDelete=viewHolder.getAdapterPosition();
+
+            //remove
+            sachAdminAdapter.remove(indexDelete);
+            Snackbar snackbar=Snackbar.make(root_View,nameDeleted+" removed!",Snackbar.LENGTH_SHORT);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sachAdminAdapter.undoItem(sach,indexDelete);
+                    if(indexDelete==0||indexDelete==saches.size()-1){
+                        rcv_sach.scrollToPosition(indexDelete);
+                    }
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+        }
+    }
 }

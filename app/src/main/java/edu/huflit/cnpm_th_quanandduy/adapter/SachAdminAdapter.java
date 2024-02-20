@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,9 +52,10 @@ public class SachAdminAdapter extends RecyclerView.Adapter<SachAdminAdapter.Sach
         return saches.size();
     }
 
-    class SachAdminViewHolder extends RecyclerView.ViewHolder {
+   public class SachAdminViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_sachAdminn;
+        public LinearLayout layout_foreground;
         TextView tv_tacphamAdmin,tv_theloaiAdmin,tv_priceAdmin;
         public SachAdminViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +63,18 @@ public class SachAdminAdapter extends RecyclerView.Adapter<SachAdminAdapter.Sach
             tv_tacphamAdmin=itemView.findViewById(R.id.tv_tacphamAdmin);
             tv_theloaiAdmin=itemView.findViewById(R.id.tv_theloaiAdmin);
             tv_priceAdmin=itemView.findViewById(R.id.tv_priceAdmin);
+            layout_foreground=itemView.findViewById(R.id.layout_foreground);
         }
+    }
+
+    public void remove(int index)
+    {
+        saches.remove(index);
+        notifyItemRemoved(index);
+    }
+    public void undoItem(Sach sach,int index)
+    {
+        saches.add(index,sach);
+        notifyItemInserted(index);
     }
 }
