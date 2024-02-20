@@ -5,22 +5,17 @@ import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Firebase {
     FirebaseFirestore mfirestore;
@@ -151,5 +146,9 @@ public class Firebase {
                 }
             });
         }
+    }
+    public void GetNameAuthor()
+    {
+
     }
 }

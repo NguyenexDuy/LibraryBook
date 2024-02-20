@@ -38,7 +38,7 @@ public class SachAdminAdapter extends RecyclerView.Adapter<SachAdminAdapter.Sach
     @Override
     public void onBindViewHolder(@NonNull SachAdminViewHolder holder, int position) {
         Sach sach=saches.get(position);
-        holder.tv_tacphamAdmin.setText(sach.getTacGia());
+        holder.tv_tacphamAdmin.setText(sach.getTenSach());
         holder.tv_priceAdmin.setText(sach.getGiaSach());
         holder.tv_theloaiAdmin.setText(sach.getLoaiSach());
         String imageUri= sach.getHinhSach();
